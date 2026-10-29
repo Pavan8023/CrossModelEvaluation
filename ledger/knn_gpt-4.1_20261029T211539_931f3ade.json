@@ -1,0 +1,68 @@
+{
+  "experiment_id": "knn_gpt-4.1_20261029T211539_931f3ade",
+  "status": "development_fit_complete",
+  "stage": "development_parameter_selection",
+  "classifier": "KNN",
+  "training_generator": "gpt-4.1",
+  "development_records": 3998,
+  "class_counts": {
+    "0": 3000,
+    "1": 998
+  },
+  "features": [
+    "ttr",
+    "mean_word_len",
+    "mean_sentence_len_tokens",
+    "yules_k",
+    "clause_density",
+    "noun_ratio",
+    "verb_ratio",
+    "mean_parse_depth",
+    "imperative_count",
+    "first_person_ratio",
+    "second_person_ratio",
+    "politeness_density",
+    "urgency_density",
+    "url_density",
+    "cta_density",
+    "authority_density",
+    "time_pressure_density"
+  ],
+  "feature_version": "original_17_reproduced",
+  "split_version": "splits_v2",
+  "cv_manifest": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\development_cv_gpt-4.1.csv",
+  "seed": 42,
+  "candidate_count": 20,
+  "best_parameters": {
+    "knn__n_neighbors": 3,
+    "knn__p": 1,
+    "knn__weights": "distance"
+  },
+  "selection_cv_mean_f1": 0.9521417294974672,
+  "selection_cv_std_f1": 0.01722290243899104,
+  "selection_cv_mean_roc_auc": 0.991974945561139,
+  "selection_cv_mean_average_precision": 0.9542723437295928,
+  "decision_rule": "LLM if score >= 0.5",
+  "score_type": "uncalibrated neighbour-vote estimate",
+  "calibration_records_used": 0,
+  "final_test_records_used": 0,
+  "interpretation": "CV scores and predictions used for parameter selection; not an unbiased final performance estimate. Fold standard deviation is not a confidence interval.",
+  "versions": {
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.4",
+    "joblib": "1.6.0"
+  },
+  "input_hashes": {
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\corpus_features.csv": "1c76c1732abf1722ee1646e898f8333967516ec96161d24951aee45f46d2e41a",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\human_corpus_sampled.csv": "259c36f2825b4230aeaac9b9c3d61a22e1233e0e741eb1d371cdbb96cc1d8065",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\llm_corpus_sampled.csv": "6232d0c864839029500236ce807d060ecf642733452ce8b0f4f26754e2ed41f7",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\summary.json": "c1cc4fc4fc29020761aacad00e226271211c7aad4de530e1a502d35536b7e0a6",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\manifest.csv": "4eaff232344d7da3e345a720e2fec3acc02f17e1ac5749573806e4b42d69e316",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\similarity_pairs.csv": "af6b0b7739678d467998c39007654324a996a21ea1d7d7d32bdf10514716a0ed",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\knn_detector.py": "e945b65c2dd34eb129e421da333ed85f28a6b88ada01b9e1bcf8e2d126582f28",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\feature_validation.py": "c78488b29cf692ca5ec9803b9e0279e3432347845aaddf925104656dfd585d78",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\development_cv_gpt-4.1.csv": "f1d90a959e4d7c4cd47ac2970edcfcb7fb144fddb1ac7290efb070bd4cde4eb7",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\train_knn.py": "75d8d0019ee1b5e254e84d790f9bfd8f955175b87c0ca973d1e9200eb1e39bdd"
+  },
+  "result_directory": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\results\\knn_gpt-4.1_20261029T211539_931f3ade"
+}
