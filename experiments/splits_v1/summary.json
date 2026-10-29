@@ -1,0 +1,67 @@
+{
+  "status": "candidate_partitions_checks_passed",
+  "records": 9986,
+  "groups": 9351,
+  "multi_record_groups": 191,
+  "records_in_multi_record_groups": 826,
+  "largest_group": 112,
+  "linked_pairs": 15272,
+  "group_crossings": 0,
+  "linked_pair_crossings": 0,
+  "seed": 42,
+  "scikit_learn": "1.9.1",
+  "numpy": "2.5.4",
+  "similarity_threshold": 0.9,
+  "review_floor": 0.88,
+  "representation": "binary word trigrams, cosine similarity",
+  "normalization": "collapse whitespace and casefold; grouping only",
+  "grouping": "connected components",
+  "allocation": {
+    "fold_0": "test",
+    "fold_1": "calibration",
+    "folds_2_3_4": "development"
+  },
+  "input_hashes": {
+    "corpus_features.csv": "1c76c1732abf1722ee1646e898f8333967516ec96161d24951aee45f46d2e41a",
+    "human_corpus_sampled.csv": "259c36f2825b4230aeaac9b9c3d61a22e1233e0e741eb1d371cdbb96cc1d8065",
+    "llm_corpus_sampled.csv": "6232d0c864839029500236ce807d060ecf642733452ce8b0f4f26754e2ed41f7"
+  },
+  "script_sha256": "0000491532533c496eb50d4d2366f828e536182bddf2700db4e7ffdb9a8a6cfc",
+  "partition_counts": {
+    "development": 5991,
+    "calibration": 1998,
+    "test": 1997
+  },
+  "source_counts": {
+    "development": {
+      "TREC-07": 900,
+      "CEAS_08": 900,
+      "Nazario": 600,
+      "enron_data_fraud_labeled": 150,
+      "Nigerian_Fraud": 450,
+      "gpt-4.1": 999,
+      "deepseek3.2": 997,
+      "llama-3.3-70b": 995
+    },
+    "calibration": {
+      "TREC-07": 300,
+      "CEAS_08": 300,
+      "Nazario": 200,
+      "Nigerian_Fraud": 150,
+      "enron_data_fraud_labeled": 50,
+      "gpt-4.1": 333,
+      "deepseek3.2": 334,
+      "llama-3.3-70b": 331
+    },
+    "test": {
+      "CEAS_08": 300,
+      "Nazario": 200,
+      "Nigerian_Fraud": 150,
+      "TREC-07": 300,
+      "enron_data_fraud_labeled": 50,
+      "gpt-4.1": 333,
+      "deepseek3.2": 334,
+      "llama-3.3-70b": 330
+    }
+  }
+}
