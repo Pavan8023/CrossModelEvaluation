@@ -338,11 +338,11 @@ def main():
             raise RuntimeError(f"An input changed during training: {path}")
 
     run_id = (
-        f"knn_{args.generator}_"
+        f"knn_development_{args.generator}_"
         f"{datetime.now(timezone.utc):%Y%m%dT%H%M%S}_"
         f"{uuid4().hex[:8]}"
     )
-    output = ROOT / "results" / run_id
+    output = ROOT / "results" / "development" / "knn" / run_id
     output.mkdir(parents=True, exist_ok=False)
 
     joblib.dump(search.best_estimator_, output / "model.joblib")
@@ -455,8 +455,8 @@ def main():
         "result_directory": str(output),
     }
 
-    ledger = ROOT / "ledger"
-    ledger.mkdir(exist_ok=True)
+    ledger = ROOT / "ledger" / "development" / "knn"
+    ledger.mkdir(parents=True, exist_ok=True)
     report_path = ledger / f"{run_id}.json"
 
     with report_path.open("x", encoding="utf-8") as stream:
