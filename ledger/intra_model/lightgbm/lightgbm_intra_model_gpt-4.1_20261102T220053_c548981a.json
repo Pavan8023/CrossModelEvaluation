@@ -1,0 +1,326 @@
+{
+  "experiment_id": "lightgbm_intra_model_gpt-4.1_20261102T220053_c548981a",
+  "status": "intra_model_nested_cv_complete",
+  "evaluation_method": "intra_model",
+  "classifier": "lightgbm",
+  "training_generator": "gpt-4.1",
+  "evaluation_generator": "gpt-4.1",
+  "evaluation_partition": "development_outer_folds",
+  "development_records": 3998,
+  "features": [
+    "ttr",
+    "mean_word_len",
+    "mean_sentence_len_tokens",
+    "yules_k",
+    "clause_density",
+    "noun_ratio",
+    "verb_ratio",
+    "mean_parse_depth",
+    "imperative_count",
+    "first_person_ratio",
+    "second_person_ratio",
+    "politeness_density",
+    "urgency_density",
+    "url_density",
+    "cta_density",
+    "authority_density",
+    "time_pressure_density"
+  ],
+  "feature_version": "original_17_reproduced",
+  "split_version": "splits_v2",
+  "nested_protocol": "v1: saved outer folds; five inner group folds",
+  "outer_cv_manifest": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\development_cv_gpt-4.1.csv",
+  "nested_cv_manifest": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\nested_cv_v1_gpt-4.1.csv",
+  "knn_reference_experiments": [
+    "knn_gpt-4.1_20261029T211539_931f3ade"
+  ],
+  "outer_folds": 5,
+  "inner_folds": 5,
+  "outer_seed": 42,
+  "inner_seeds": [
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "parameter_grid": {
+    "lightgbm__n_estimators": [
+      100,
+      200
+    ],
+    "lightgbm__num_leaves": [
+      7,
+      15,
+      31,
+      63,
+      127
+    ],
+    "lightgbm__learning_rate": [
+      0.05,
+      0.1
+    ]
+  },
+  "candidate_count": 20,
+  "fit_count": 505,
+  "decision_rule": "LLM if score >= 0.5",
+  "positive_class": "LLM",
+  "outer_fold_metrics": {
+    "accuracy": {
+      "mean": 0.9947490613266583,
+      "std": 0.004087948237693554
+    },
+    "precision": {
+      "mean": 0.9880986201994952,
+      "std": 0.011340070748387495
+    },
+    "recall": {
+      "mean": 0.9909899497487438,
+      "std": 0.006521167891251717
+    },
+    "sensitivity": {
+      "mean": 0.9909899497487438,
+      "std": 0.006521167891251717
+    },
+    "specificity": {
+      "mean": 0.9960000000000001,
+      "std": 0.003836954811073779
+    },
+    "f1": {
+      "mean": 0.9895258852647512,
+      "std": 0.00810808556195254
+    },
+    "roc_auc": {
+      "mean": 0.9997199581239531,
+      "std": 0.00034989290809744064
+    },
+    "average_precision": {
+      "mean": 0.9991094591249381,
+      "std": 0.0011179038804128227
+    }
+  },
+  "pooled_outer_predictions_metrics": {
+    "accuracy": 0.9947473736868434,
+    "precision": 0.988011988011988,
+    "recall": 0.9909819639278558,
+    "sensitivity": 0.9909819639278558,
+    "specificity": 0.996,
+    "f1": 0.9894947473736868,
+    "roc_auc": 0.9996793587174349,
+    "average_precision": 0.9989197810908134,
+    "tn": 2988,
+    "fp": 12,
+    "fn": 9,
+    "tp": 989
+  },
+  "fold_configurations": [
+    {
+      "outer_fold": 0,
+      "selected_parameters": {
+        "lightgbm__learning_rate": 0.1,
+        "lightgbm__n_estimators": 200,
+        "lightgbm__num_leaves": 63
+      },
+      "fitted_estimator_parameters": {
+        "boosting_type": "gbdt",
+        "class_weight": null,
+        "colsample_bytree": 1.0,
+        "importance_type": "split",
+        "learning_rate": 0.1,
+        "max_depth": -1,
+        "min_child_samples": 20,
+        "min_child_weight": 0.001,
+        "min_split_gain": 0.0,
+        "n_estimators": 200,
+        "n_jobs": 1,
+        "num_leaves": 63,
+        "objective": "binary",
+        "random_state": 42,
+        "reg_alpha": 0.0,
+        "reg_lambda": 0.0,
+        "subsample": 1.0,
+        "subsample_for_bin": 200000,
+        "subsample_freq": 0,
+        "device_type": "cpu",
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      }
+    },
+    {
+      "outer_fold": 1,
+      "selected_parameters": {
+        "lightgbm__learning_rate": 0.1,
+        "lightgbm__n_estimators": 200,
+        "lightgbm__num_leaves": 15
+      },
+      "fitted_estimator_parameters": {
+        "boosting_type": "gbdt",
+        "class_weight": null,
+        "colsample_bytree": 1.0,
+        "importance_type": "split",
+        "learning_rate": 0.1,
+        "max_depth": -1,
+        "min_child_samples": 20,
+        "min_child_weight": 0.001,
+        "min_split_gain": 0.0,
+        "n_estimators": 200,
+        "n_jobs": 1,
+        "num_leaves": 15,
+        "objective": "binary",
+        "random_state": 42,
+        "reg_alpha": 0.0,
+        "reg_lambda": 0.0,
+        "subsample": 1.0,
+        "subsample_for_bin": 200000,
+        "subsample_freq": 0,
+        "device_type": "cpu",
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      }
+    },
+    {
+      "outer_fold": 2,
+      "selected_parameters": {
+        "lightgbm__learning_rate": 0.1,
+        "lightgbm__n_estimators": 200,
+        "lightgbm__num_leaves": 31
+      },
+      "fitted_estimator_parameters": {
+        "boosting_type": "gbdt",
+        "class_weight": null,
+        "colsample_bytree": 1.0,
+        "importance_type": "split",
+        "learning_rate": 0.1,
+        "max_depth": -1,
+        "min_child_samples": 20,
+        "min_child_weight": 0.001,
+        "min_split_gain": 0.0,
+        "n_estimators": 200,
+        "n_jobs": 1,
+        "num_leaves": 31,
+        "objective": "binary",
+        "random_state": 42,
+        "reg_alpha": 0.0,
+        "reg_lambda": 0.0,
+        "subsample": 1.0,
+        "subsample_for_bin": 200000,
+        "subsample_freq": 0,
+        "device_type": "cpu",
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      }
+    },
+    {
+      "outer_fold": 3,
+      "selected_parameters": {
+        "lightgbm__learning_rate": 0.1,
+        "lightgbm__n_estimators": 200,
+        "lightgbm__num_leaves": 31
+      },
+      "fitted_estimator_parameters": {
+        "boosting_type": "gbdt",
+        "class_weight": null,
+        "colsample_bytree": 1.0,
+        "importance_type": "split",
+        "learning_rate": 0.1,
+        "max_depth": -1,
+        "min_child_samples": 20,
+        "min_child_weight": 0.001,
+        "min_split_gain": 0.0,
+        "n_estimators": 200,
+        "n_jobs": 1,
+        "num_leaves": 31,
+        "objective": "binary",
+        "random_state": 42,
+        "reg_alpha": 0.0,
+        "reg_lambda": 0.0,
+        "subsample": 1.0,
+        "subsample_for_bin": 200000,
+        "subsample_freq": 0,
+        "device_type": "cpu",
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      }
+    },
+    {
+      "outer_fold": 4,
+      "selected_parameters": {
+        "lightgbm__learning_rate": 0.1,
+        "lightgbm__n_estimators": 200,
+        "lightgbm__num_leaves": 7
+      },
+      "fitted_estimator_parameters": {
+        "boosting_type": "gbdt",
+        "class_weight": null,
+        "colsample_bytree": 1.0,
+        "importance_type": "split",
+        "learning_rate": 0.1,
+        "max_depth": -1,
+        "min_child_samples": 20,
+        "min_child_weight": 0.001,
+        "min_split_gain": 0.0,
+        "n_estimators": 200,
+        "n_jobs": 1,
+        "num_leaves": 7,
+        "objective": "binary",
+        "random_state": 42,
+        "reg_alpha": 0.0,
+        "reg_lambda": 0.0,
+        "subsample": 1.0,
+        "subsample_for_bin": 200000,
+        "subsample_freq": 0,
+        "device_type": "cpu",
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      }
+    }
+  ],
+  "uncertainty": "Sample standard deviation across five outer folds (ddof=1); not a confidence interval; folds have overlapping training data.",
+  "interpretation": "Each outer prediction excludes that record and its similarity group from its model's fitting and inner parameter selection. Development data were explored previously; this is internal nested evaluation, not an untouched final-test result. Do not change the grids using outer evaluation scores.",
+  "calibration_records_used": 0,
+  "final_test_records_used": 0,
+  "versions": {
+    "python": "3.13.5",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.4",
+    "joblib": "1.6.0",
+    "lightgbm": "4.6.0"
+  },
+  "input_hashes": {
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\corpus_features.csv": "1c76c1732abf1722ee1646e898f8333967516ec96161d24951aee45f46d2e41a",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\human_corpus_sampled.csv": "259c36f2825b4230aeaac9b9c3d61a22e1233e0e741eb1d371cdbb96cc1d8065",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\llm_corpus_sampled.csv": "6232d0c864839029500236ce807d060ecf642733452ce8b0f4f26754e2ed41f7",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\summary.json": "c1cc4fc4fc29020761aacad00e226271211c7aad4de530e1a502d35536b7e0a6",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\manifest.csv": "4eaff232344d7da3e345a720e2fec3acc02f17e1ac5749573806e4b42d69e316",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\similarity_pairs.csv": "af6b0b7739678d467998c39007654324a996a21ea1d7d7d32bdf10514716a0ed",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\knn_detector.py": "e945b65c2dd34eb129e421da333ed85f28a6b88ada01b9e1bcf8e2d126582f28",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\feature_validation.py": "c78488b29cf692ca5ec9803b9e0279e3432347845aaddf925104656dfd585d78",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\development_cv_gpt-4.1.csv": "f1d90a959e4d7c4cd47ac2970edcfcb7fb144fddb1ac7290efb070bd4cde4eb7",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\development\\knn\\knn_gpt-4.1_20261029T211539_931f3ade.json": "2e67cd2be14ff7641968b8dfc241824a8f6b80be3dec02091c52d83449d437b6",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\nested_cv_v1_gpt-4.1.csv": "63c02844bd70e5324b7b46865d84d5ae1fb8e9135606179d13bd34f8dff79b42",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\lightgbm_detector.py": "5aedabf1d7990b2291bf7e9527e91a0e878964cd0141d09ad186475860970d9e",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\train_knn.py": "3c05aa99bbfa4c3e226805ae77b3f4b48dd4cf453e1aec3401f9225458933df7",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\train_lightgbm.py": "02e34b0effab16599d4428a36367aeb82a6ded7e2909dc2b6f095df654d4e50a",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\evaluate_intra_model.py": "d51a3f0017725b8be40d14d727c6dba5d6c91a27d9e88eb5a57efb1868c26550"
+  },
+  "result_directory": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\results\\intra_model\\lightgbm\\lightgbm_intra_model_gpt-4.1_20261102T220053_c548981a",
+  "output_hashes": {
+    "intra_model_fold_metrics.csv": "7af268f22742b40a1ac62e6128a9480129d48ab887b8f514912a903e0dfac3cd",
+    "intra_model_predictions.csv": "161ed3415b7b4ec2ab8556ea3880723ba5bfb9b8084970cfbb200f4f502887c0",
+    "outer_fold_0_inner_search.csv": "ff14b19145b13a6179f8d80c5e423667271f30a86852554d6b8ae03088cfcce3",
+    "outer_fold_0_model.joblib": "b37a2a9437e333b2bb856dd0c0773097cdda3de90dec5a5c7cabf9504c2af894",
+    "outer_fold_1_inner_search.csv": "b31a2974bb571480a4db6b519072218a564fe03ca2124ce82a6f19f3c7dd14e9",
+    "outer_fold_1_model.joblib": "0f2ea3a3319c46f4355a9520ba1d54bc9860997bc29c65fabb0d5ab6fac92aea",
+    "outer_fold_2_inner_search.csv": "69233298d86003240cb239d876a4be33ca319990d386f035d9d3bfe6007df86f",
+    "outer_fold_2_model.joblib": "86a8bb01476e6184e15a793f87e8c1600e189db17cfa95de661f1a93a31ea903",
+    "outer_fold_3_inner_search.csv": "7160489b05c58c7a9ab6761397dcc3189e808c8cac893d43e4b2d692d5997190",
+    "outer_fold_3_model.joblib": "0b00e6c4122e6c0c2d1cb3c60b6036b6473803e558c1c01797ab578ba3f50f56",
+    "outer_fold_4_inner_search.csv": "3606f97bd8ead069d3ef70d7b3e5c9ec0b33832b364a862eb150c9473b7e0b76",
+    "outer_fold_4_model.joblib": "4ab590c21d2378d04ba0d9bfa4567a7fde96d021bf4aba96c1c5382ac592c9e3"
+  }
+}

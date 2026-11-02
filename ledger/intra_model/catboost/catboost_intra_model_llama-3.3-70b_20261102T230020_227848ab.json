@@ -1,0 +1,441 @@
+{
+  "experiment_id": "catboost_intra_model_llama-3.3-70b_20261102T230020_227848ab",
+  "status": "intra_model_nested_cv_complete",
+  "evaluation_method": "intra_model",
+  "classifier": "catboost",
+  "training_generator": "llama-3.3-70b",
+  "evaluation_generator": "llama-3.3-70b",
+  "evaluation_partition": "development_outer_folds",
+  "development_records": 3996,
+  "features": [
+    "ttr",
+    "mean_word_len",
+    "mean_sentence_len_tokens",
+    "yules_k",
+    "clause_density",
+    "noun_ratio",
+    "verb_ratio",
+    "mean_parse_depth",
+    "imperative_count",
+    "first_person_ratio",
+    "second_person_ratio",
+    "politeness_density",
+    "urgency_density",
+    "url_density",
+    "cta_density",
+    "authority_density",
+    "time_pressure_density"
+  ],
+  "feature_version": "original_17_reproduced",
+  "split_version": "splits_v2",
+  "nested_protocol": "v1: saved outer folds; five inner group folds",
+  "outer_cv_manifest": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\development_cv_llama-3.3-70b.csv",
+  "nested_cv_manifest": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\nested_cv_v1_llama-3.3-70b.csv",
+  "knn_reference_experiments": [
+    "knn_development_llama-3.3-70b_20261102T161449_a95a6941"
+  ],
+  "outer_folds": 5,
+  "inner_folds": 5,
+  "outer_seed": 42,
+  "inner_seeds": [
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "parameter_grid": {
+    "catboost__iterations": [
+      100,
+      200
+    ],
+    "catboost__depth": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "catboost__learning_rate": [
+      0.05,
+      0.1
+    ]
+  },
+  "candidate_count": 20,
+  "fit_count": 505,
+  "decision_rule": "LLM if score >= 0.5",
+  "positive_class": "LLM",
+  "outer_fold_metrics": {
+    "accuracy": {
+      "mean": 0.9944943679599498,
+      "std": 0.002094643713785231
+    },
+    "precision": {
+      "mean": 0.9841669453180376,
+      "std": 0.008039083795539493
+    },
+    "recall": {
+      "mean": 0.9939698492462311,
+      "std": 0.006551962216284059
+    },
+    "sensitivity": {
+      "mean": 0.9939698492462311,
+      "std": 0.006551962216284059
+    },
+    "specificity": {
+      "mean": 0.9946666666666666,
+      "std": 0.0027386127875258263
+    },
+    "f1": {
+      "mean": 0.9890145253331303,
+      "std": 0.004166038433516747
+    },
+    "roc_auc": {
+      "mean": 0.9995984505862647,
+      "std": 0.0003476017246581263
+    },
+    "average_precision": {
+      "mean": 0.9986898890445612,
+      "std": 0.0011860700913103699
+    }
+  },
+  "pooled_outer_predictions_metrics": {
+    "accuracy": 0.9944944944944945,
+    "precision": 0.9840954274353877,
+    "recall": 0.9939759036144579,
+    "sensitivity": 0.9939759036144579,
+    "specificity": 0.9946666666666667,
+    "f1": 0.989010989010989,
+    "roc_auc": 0.9995823293172691,
+    "average_precision": 0.9986446592112084,
+    "tn": 2984,
+    "fp": 16,
+    "fn": 6,
+    "tp": 990
+  },
+  "fold_configurations": [
+    {
+      "outer_fold": 0,
+      "selected_parameters": {
+        "catboost__depth": 6,
+        "catboost__iterations": 200,
+        "catboost__learning_rate": 0.1
+      },
+      "fitted_estimator_parameters": {
+        "nan_mode": "Min",
+        "eval_metric": "Logloss",
+        "iterations": 200,
+        "sampling_frequency": "PerTree",
+        "leaf_estimation_method": "Newton",
+        "random_score_type": "NormalWithModelSizeDecrease",
+        "grow_policy": "SymmetricTree",
+        "penalties_coefficient": 1,
+        "boosting_type": "Plain",
+        "model_shrink_mode": "Constant",
+        "feature_border_type": "GreedyLogSum",
+        "bayesian_matrix_reg": 0.10000000149011612,
+        "eval_fraction": 0,
+        "force_unit_auto_pair_weights": false,
+        "l2_leaf_reg": 3,
+        "random_strength": 1,
+        "rsm": 1,
+        "boost_from_average": false,
+        "model_size_reg": 0.5,
+        "pool_metainfo_options": {
+          "tags": {}
+        },
+        "subsample": 0.800000011920929,
+        "use_best_model": false,
+        "class_names": [
+          0,
+          1
+        ],
+        "random_seed": 42,
+        "depth": 6,
+        "posterior_sampling": false,
+        "border_count": 254,
+        "classes_count": 0,
+        "auto_class_weights": "None",
+        "sparse_features_conflict_fraction": 0,
+        "leaf_estimation_backtracking": "AnyImprovement",
+        "best_model_min_trees": 1,
+        "model_shrink_rate": 0,
+        "min_data_in_leaf": 1,
+        "loss_function": "Logloss",
+        "learning_rate": 0.10000000149011612,
+        "score_function": "Cosine",
+        "task_type": "CPU",
+        "leaf_estimation_iterations": 10,
+        "bootstrap_type": "MVS",
+        "max_leaves": 64
+      }
+    },
+    {
+      "outer_fold": 1,
+      "selected_parameters": {
+        "catboost__depth": 3,
+        "catboost__iterations": 200,
+        "catboost__learning_rate": 0.1
+      },
+      "fitted_estimator_parameters": {
+        "nan_mode": "Min",
+        "eval_metric": "Logloss",
+        "iterations": 200,
+        "sampling_frequency": "PerTree",
+        "leaf_estimation_method": "Newton",
+        "random_score_type": "NormalWithModelSizeDecrease",
+        "grow_policy": "SymmetricTree",
+        "penalties_coefficient": 1,
+        "boosting_type": "Plain",
+        "model_shrink_mode": "Constant",
+        "feature_border_type": "GreedyLogSum",
+        "bayesian_matrix_reg": 0.10000000149011612,
+        "eval_fraction": 0,
+        "force_unit_auto_pair_weights": false,
+        "l2_leaf_reg": 3,
+        "random_strength": 1,
+        "rsm": 1,
+        "boost_from_average": false,
+        "model_size_reg": 0.5,
+        "pool_metainfo_options": {
+          "tags": {}
+        },
+        "subsample": 0.800000011920929,
+        "use_best_model": false,
+        "class_names": [
+          0,
+          1
+        ],
+        "random_seed": 42,
+        "depth": 3,
+        "posterior_sampling": false,
+        "border_count": 254,
+        "classes_count": 0,
+        "auto_class_weights": "None",
+        "sparse_features_conflict_fraction": 0,
+        "leaf_estimation_backtracking": "AnyImprovement",
+        "best_model_min_trees": 1,
+        "model_shrink_rate": 0,
+        "min_data_in_leaf": 1,
+        "loss_function": "Logloss",
+        "learning_rate": 0.10000000149011612,
+        "score_function": "Cosine",
+        "task_type": "CPU",
+        "leaf_estimation_iterations": 10,
+        "bootstrap_type": "MVS",
+        "max_leaves": 8
+      }
+    },
+    {
+      "outer_fold": 2,
+      "selected_parameters": {
+        "catboost__depth": 7,
+        "catboost__iterations": 200,
+        "catboost__learning_rate": 0.05
+      },
+      "fitted_estimator_parameters": {
+        "nan_mode": "Min",
+        "eval_metric": "Logloss",
+        "iterations": 200,
+        "sampling_frequency": "PerTree",
+        "leaf_estimation_method": "Newton",
+        "random_score_type": "NormalWithModelSizeDecrease",
+        "grow_policy": "SymmetricTree",
+        "penalties_coefficient": 1,
+        "boosting_type": "Plain",
+        "model_shrink_mode": "Constant",
+        "feature_border_type": "GreedyLogSum",
+        "bayesian_matrix_reg": 0.10000000149011612,
+        "eval_fraction": 0,
+        "force_unit_auto_pair_weights": false,
+        "l2_leaf_reg": 3,
+        "random_strength": 1,
+        "rsm": 1,
+        "boost_from_average": false,
+        "model_size_reg": 0.5,
+        "pool_metainfo_options": {
+          "tags": {}
+        },
+        "subsample": 0.800000011920929,
+        "use_best_model": false,
+        "class_names": [
+          0,
+          1
+        ],
+        "random_seed": 42,
+        "depth": 7,
+        "posterior_sampling": false,
+        "border_count": 254,
+        "classes_count": 0,
+        "auto_class_weights": "None",
+        "sparse_features_conflict_fraction": 0,
+        "leaf_estimation_backtracking": "AnyImprovement",
+        "best_model_min_trees": 1,
+        "model_shrink_rate": 0,
+        "min_data_in_leaf": 1,
+        "loss_function": "Logloss",
+        "learning_rate": 0.05000000074505806,
+        "score_function": "Cosine",
+        "task_type": "CPU",
+        "leaf_estimation_iterations": 10,
+        "bootstrap_type": "MVS",
+        "max_leaves": 128
+      }
+    },
+    {
+      "outer_fold": 3,
+      "selected_parameters": {
+        "catboost__depth": 6,
+        "catboost__iterations": 200,
+        "catboost__learning_rate": 0.05
+      },
+      "fitted_estimator_parameters": {
+        "nan_mode": "Min",
+        "eval_metric": "Logloss",
+        "iterations": 200,
+        "sampling_frequency": "PerTree",
+        "leaf_estimation_method": "Newton",
+        "random_score_type": "NormalWithModelSizeDecrease",
+        "grow_policy": "SymmetricTree",
+        "penalties_coefficient": 1,
+        "boosting_type": "Plain",
+        "model_shrink_mode": "Constant",
+        "feature_border_type": "GreedyLogSum",
+        "bayesian_matrix_reg": 0.10000000149011612,
+        "eval_fraction": 0,
+        "force_unit_auto_pair_weights": false,
+        "l2_leaf_reg": 3,
+        "random_strength": 1,
+        "rsm": 1,
+        "boost_from_average": false,
+        "model_size_reg": 0.5,
+        "pool_metainfo_options": {
+          "tags": {}
+        },
+        "subsample": 0.800000011920929,
+        "use_best_model": false,
+        "class_names": [
+          0,
+          1
+        ],
+        "random_seed": 42,
+        "depth": 6,
+        "posterior_sampling": false,
+        "border_count": 254,
+        "classes_count": 0,
+        "auto_class_weights": "None",
+        "sparse_features_conflict_fraction": 0,
+        "leaf_estimation_backtracking": "AnyImprovement",
+        "best_model_min_trees": 1,
+        "model_shrink_rate": 0,
+        "min_data_in_leaf": 1,
+        "loss_function": "Logloss",
+        "learning_rate": 0.05000000074505806,
+        "score_function": "Cosine",
+        "task_type": "CPU",
+        "leaf_estimation_iterations": 10,
+        "bootstrap_type": "MVS",
+        "max_leaves": 64
+      }
+    },
+    {
+      "outer_fold": 4,
+      "selected_parameters": {
+        "catboost__depth": 5,
+        "catboost__iterations": 200,
+        "catboost__learning_rate": 0.05
+      },
+      "fitted_estimator_parameters": {
+        "nan_mode": "Min",
+        "eval_metric": "Logloss",
+        "iterations": 200,
+        "sampling_frequency": "PerTree",
+        "leaf_estimation_method": "Newton",
+        "random_score_type": "NormalWithModelSizeDecrease",
+        "grow_policy": "SymmetricTree",
+        "penalties_coefficient": 1,
+        "boosting_type": "Plain",
+        "model_shrink_mode": "Constant",
+        "feature_border_type": "GreedyLogSum",
+        "bayesian_matrix_reg": 0.10000000149011612,
+        "eval_fraction": 0,
+        "force_unit_auto_pair_weights": false,
+        "l2_leaf_reg": 3,
+        "random_strength": 1,
+        "rsm": 1,
+        "boost_from_average": false,
+        "model_size_reg": 0.5,
+        "pool_metainfo_options": {
+          "tags": {}
+        },
+        "subsample": 0.800000011920929,
+        "use_best_model": false,
+        "class_names": [
+          0,
+          1
+        ],
+        "random_seed": 42,
+        "depth": 5,
+        "posterior_sampling": false,
+        "border_count": 254,
+        "classes_count": 0,
+        "auto_class_weights": "None",
+        "sparse_features_conflict_fraction": 0,
+        "leaf_estimation_backtracking": "AnyImprovement",
+        "best_model_min_trees": 1,
+        "model_shrink_rate": 0,
+        "min_data_in_leaf": 1,
+        "loss_function": "Logloss",
+        "learning_rate": 0.05000000074505806,
+        "score_function": "Cosine",
+        "task_type": "CPU",
+        "leaf_estimation_iterations": 10,
+        "bootstrap_type": "MVS",
+        "max_leaves": 32
+      }
+    }
+  ],
+  "uncertainty": "Sample standard deviation across five outer folds (ddof=1); not a confidence interval; folds have overlapping training data.",
+  "interpretation": "Each outer prediction excludes that record and its similarity group from its model's fitting and inner parameter selection. Development data were explored previously; this is internal nested evaluation, not an untouched final-test result. Do not change the grids using outer evaluation scores.",
+  "calibration_records_used": 0,
+  "final_test_records_used": 0,
+  "versions": {
+    "python": "3.13.5",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.4",
+    "joblib": "1.6.0",
+    "catboost": "1.2.10"
+  },
+  "input_hashes": {
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\corpus_features.csv": "1c76c1732abf1722ee1646e898f8333967516ec96161d24951aee45f46d2e41a",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\human_corpus_sampled.csv": "259c36f2825b4230aeaac9b9c3d61a22e1233e0e741eb1d371cdbb96cc1d8065",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\llm_corpus_sampled.csv": "6232d0c864839029500236ce807d060ecf642733452ce8b0f4f26754e2ed41f7",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\summary.json": "c1cc4fc4fc29020761aacad00e226271211c7aad4de530e1a502d35536b7e0a6",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\manifest.csv": "4eaff232344d7da3e345a720e2fec3acc02f17e1ac5749573806e4b42d69e316",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\similarity_pairs.csv": "af6b0b7739678d467998c39007654324a996a21ea1d7d7d32bdf10514716a0ed",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\knn_detector.py": "e945b65c2dd34eb129e421da333ed85f28a6b88ada01b9e1bcf8e2d126582f28",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\feature_validation.py": "c78488b29cf692ca5ec9803b9e0279e3432347845aaddf925104656dfd585d78",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\development_cv_llama-3.3-70b.csv": "86092c3a24228fb38f9683cc45e2beff352d4ed75b736704ce82d1c06fa23f34",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\development\\knn\\knn_development_llama-3.3-70b_20261102T161449_a95a6941.json": "1db24ba1a25e7efaae0e76b92c26440b509492f52cc3dde1ccc03421f13ec2da",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\nested_cv_v1_llama-3.3-70b.csv": "3a39382490f26de6799ce4cbe00ae23e14183e54e950fb8c56609f5dcaafdde7",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\catboost_detector.py": "d8a53d42be51c3cd11475c83669a620198fb5cfa2041a3ca952031faafe16dfe",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\train_knn.py": "3c05aa99bbfa4c3e226805ae77b3f4b48dd4cf453e1aec3401f9225458933df7",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\train_lightgbm.py": "02e34b0effab16599d4428a36367aeb82a6ded7e2909dc2b6f095df654d4e50a",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\evaluate_intra_model.py": "d51a3f0017725b8be40d14d727c6dba5d6c91a27d9e88eb5a57efb1868c26550"
+  },
+  "result_directory": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\results\\intra_model\\catboost\\catboost_intra_model_llama-3.3-70b_20261102T230020_227848ab",
+  "output_hashes": {
+    "intra_model_fold_metrics.csv": "a8c3ee5ba40674c4a2d93b624198c5d5b747d65709aedb4855035b70f9821eb9",
+    "intra_model_predictions.csv": "a8e7bc3c01c46ceb8aab32759c9ba35d2d1727d4a7b2dff70a3ef5fb575c8d86",
+    "outer_fold_0_inner_search.csv": "584af50c3ae665db31d3549d302a6398f78cacf47e376667aae6391ef6579074",
+    "outer_fold_0_model.joblib": "4bd9698b41356d895f85cfceea9020b6812b8cb835572365ad1f14a698ff6ef6",
+    "outer_fold_1_inner_search.csv": "c0a2742452952bf56fe65df6230c8ca4aee308637ac53d20e392b2b15ef963c3",
+    "outer_fold_1_model.joblib": "8b4e6015718f13e5e3dac235d7e62db557bb7a0cf5710b222f7d8d87ff84c4ac",
+    "outer_fold_2_inner_search.csv": "07c41217f0db645cc272b815f6eb12b2b2611ba5aa8ece597e3c02b73554cc0e",
+    "outer_fold_2_model.joblib": "7a089df5df3c6bdd201797b7591af57ad240056af639f3bb86b722c997e7d6d9",
+    "outer_fold_3_inner_search.csv": "69d5c489ef998a066ac6eb3aa1bff961d543ee83ec0d35ae3f29f57affa9250a",
+    "outer_fold_3_model.joblib": "65842b75e4651739a014ff6d561ab09660c160a7130e2bf7784ebf8f6acd8628",
+    "outer_fold_4_inner_search.csv": "702e19cbc014d345d737df7a9720bce534c5804626922d70a7bacdb6b6d37e94",
+    "outer_fold_4_model.joblib": "6eef0c7d7cbd37312dacf5bb12adc842211f5827aecfb46b5a747b55b13831fc"
+  }
+}
