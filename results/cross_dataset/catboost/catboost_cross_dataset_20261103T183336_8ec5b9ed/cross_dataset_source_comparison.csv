@@ -1,0 +1,6 @@
+human_source,unseen_fpr,mean_seen_fpr,unseen_minus_seen_fpr_pp
+CEAS_08,0.0,0.0,0.0
+Nazario,0.265,0.0325,23.25
+Nigerian_Fraud,0.02,0.0,2.0
+TREC-07,0.0,0.0,0.0
+enron_data_fraud_labeled,0.02,0.05,-3.0000000000000004
