@@ -1,0 +1,47 @@
+[
+  {
+    "ledger": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\intra_model\\knn\\knn_intra_model_gpt-4.1_20261102T194041_5f3ebe8f.json",
+    "experiment_id": "knn_intra_model_gpt-4.1_20261102T194041_5f3ebe8f",
+    "mean_outer_f1": 0.9502656458711882
+  },
+  {
+    "ledger": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\intra_model\\knn\\knn_intra_model_deepseek3.2_20261102T194406_d0ab6cf3.json",
+    "experiment_id": "knn_intra_model_deepseek3.2_20261102T194406_d0ab6cf3",
+    "mean_outer_f1": 0.9550140595837959
+  },
+  {
+    "ledger": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\intra_model\\knn\\knn_intra_model_llama-3.3-70b_20261102T194649_9d7b48eb.json",
+    "experiment_id": "knn_intra_model_llama-3.3-70b_20261102T194649_9d7b48eb",
+    "mean_outer_f1": 0.9450419446316202
+  },
+  {
+    "ledger": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\intra_model\\lightgbm\\lightgbm_intra_model_gpt-4.1_20261102T220053_c548981a.json",
+    "experiment_id": "lightgbm_intra_model_gpt-4.1_20261102T220053_c548981a",
+    "mean_outer_f1": 0.9895258852647512
+  },
+  {
+    "ledger": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\intra_model\\lightgbm\\lightgbm_intra_model_deepseek3.2_20261102T221048_eda1ab43.json",
+    "experiment_id": "lightgbm_intra_model_deepseek3.2_20261102T221048_eda1ab43",
+    "mean_outer_f1": 0.9910247518222176
+  },
+  {
+    "ledger": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\intra_model\\lightgbm\\lightgbm_intra_model_llama-3.3-70b_20261102T222340_dde01e0a.json",
+    "experiment_id": "lightgbm_intra_model_llama-3.3-70b_20261102T222340_dde01e0a",
+    "mean_outer_f1": 0.9914853030125286
+  },
+  {
+    "ledger": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\intra_model\\catboost\\catboost_intra_model_gpt-4.1_20261102T222831_c0aa4e92.json",
+    "experiment_id": "catboost_intra_model_gpt-4.1_20261102T222831_c0aa4e92",
+    "mean_outer_f1": 0.9895580636208875
+  },
+  {
+    "ledger": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\intra_model\\catboost\\catboost_intra_model_deepseek3.2_20261102T224509_5d98fa9e.json",
+    "experiment_id": "catboost_intra_model_deepseek3.2_20261102T224509_5d98fa9e",
+    "mean_outer_f1": 0.9900742569639341
+  },
+  {
+    "ledger": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\intra_model\\catboost\\catboost_intra_model_llama-3.3-70b_20261102T230020_227848ab.json",
+    "experiment_id": "catboost_intra_model_llama-3.3-70b_20261102T230020_227848ab",
+    "mean_outer_f1": 0.9890145253331303
+  }
+]
