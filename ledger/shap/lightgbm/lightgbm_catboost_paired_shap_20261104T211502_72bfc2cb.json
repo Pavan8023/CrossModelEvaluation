@@ -1,0 +1,1146 @@
+{
+  "experiment_id": "lightgbm_catboost_paired_shap_20261104T211502_72bfc2cb",
+  "evaluation_method": "exploratory paired SHAP diagnostic",
+  "status": "verified",
+  "classifiers": [
+    "lightgbm",
+    "catboost"
+  ],
+  "training_generator": "deepseek3.2",
+  "evaluation_generator": "llama-3.3-70b",
+  "test_records": 329,
+  "scope": "LLM-positive records only; both classifiers scored the same emails",
+  "threshold": 0.5,
+  "fit_count": 0,
+  "features": [
+    "ttr",
+    "mean_word_len",
+    "mean_sentence_len_tokens",
+    "yules_k",
+    "clause_density",
+    "noun_ratio",
+    "verb_ratio",
+    "mean_parse_depth",
+    "imperative_count",
+    "first_person_ratio",
+    "second_person_ratio",
+    "politeness_density",
+    "urgency_density",
+    "url_density",
+    "cta_density",
+    "authority_density",
+    "time_pressure_density"
+  ],
+  "explanation_methods": {
+    "lightgbm": "Booster.predict(pred_contrib=True), verified against its saved scores and raw margins",
+    "catboost": "Native ShapValues from the saved CatBoost SHAP run, matched by record ID, group, score and cross-model run ID"
+  },
+  "score_scale": "model-specific raw margin (log-odds)",
+  "interpretation": "Compare direction and within-model rankings; this is a descriptive diagnostic of this pair.",
+  "versions": {
+    "lightgbm": "4.6.0",
+    "catboost": "1.2.10",
+    "numpy": "2.5.4",
+    "joblib": "1.6.0"
+  },
+  "input_hashes": {
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\cross_model\\lightgbm\\lightgbm_cross_model_20261103T022903_7b14492e.json": "505d0ae90bd0e762bb7d3078e414159246f9f5133cff613bbe1d1a7ea422984e",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\results\\cross_model\\lightgbm\\lightgbm_cross_model_20261103T022903_7b14492e\\cross_model_predictions.csv": "fa2fabca73f88691e91e735bf16ec097954b4359b044e19a7f916f25e3dde966",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\cross_model\\catboost\\catboost_cross_model_20261103T023109_e651ca95.json": "24f9adf8c1e0a6f6525919f981a4d9b0a8809cd260f155038caf4297ecb90dc4",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\results\\cross_model\\catboost\\catboost_cross_model_20261103T023109_e651ca95\\cross_model_predictions.csv": "89fa14924f423b228aefac4c09ce1921f9fa1d3fc83417ffc970cdfa1faa028e",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\shap\\catboost\\catboost_shap_20261104T205638_90dceaf4.json": "40c6dfb52fb8e25690a28f515875be2c9300ea79e4b1d60fa43c0358b2e80116",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\results\\shap\\catboost\\catboost_shap_20261104T205638_90dceaf4\\shap_by_email.csv": "27f0fc91205e83e9aa058c570080fa117e64fc8e5453ec36ccd6deb6fd5f33cc",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\results\\development\\lightgbm\\lightgbm_development_deepseek3.2_20261102T171145_205f3949\\development_model.joblib": "b1339dace9c0129e83af548690ba3c492de5cc37352a38508e51e3f2d6d4e770"
+  },
+  "execution_source_sha256": "3fea56911101025d682ed5c63614e99d850c954f4a753e804c71c67c01f969da",
+  "feature_summaries": [
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "ttr",
+      "mean_signed_shap": -0.1674022206231105,
+      "mean_abs_shap": 2.13855375577669
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "mean_word_len",
+      "mean_signed_shap": -1.4444427162680256,
+      "mean_abs_shap": 2.5582014311085124
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "mean_sentence_len_tokens",
+      "mean_signed_shap": 0.8872804445495058,
+      "mean_abs_shap": 0.8940065808359733
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "yules_k",
+      "mean_signed_shap": -0.8005758702396111,
+      "mean_abs_shap": 1.1556749729070441
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "clause_density",
+      "mean_signed_shap": -0.24551939731426223,
+      "mean_abs_shap": 0.24631071483011788
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "noun_ratio",
+      "mean_signed_shap": 0.15595885992050582,
+      "mean_abs_shap": 0.7702739721527632
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "verb_ratio",
+      "mean_signed_shap": 0.1586649217441517,
+      "mean_abs_shap": 0.17370423294778964
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "mean_parse_depth",
+      "mean_signed_shap": -0.1440778780069272,
+      "mean_abs_shap": 0.2276141483503098
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "imperative_count",
+      "mean_signed_shap": 0.21983691205286005,
+      "mean_abs_shap": 0.2718464249788607
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "first_person_ratio",
+      "mean_signed_shap": -0.6309522584330827,
+      "mean_abs_shap": 0.7393305194381955
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "second_person_ratio",
+      "mean_signed_shap": 0.3318971185425155,
+      "mean_abs_shap": 0.5585211201335669
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "politeness_density",
+      "mean_signed_shap": 3.4145021147965307,
+      "mean_abs_shap": 3.5849899607472455
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "urgency_density",
+      "mean_signed_shap": -0.15753195594444186,
+      "mean_abs_shap": 0.28199077862559957
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "url_density",
+      "mean_signed_shap": 0.1085139644732051,
+      "mean_abs_shap": 0.23713412277823143
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "cta_density",
+      "mean_signed_shap": 0.6977019883717066,
+      "mean_abs_shap": 2.0834287991318248
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "authority_density",
+      "mean_signed_shap": -0.44748815751772,
+      "mean_abs_shap": 1.0035836973337422
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "lightgbm",
+      "feature": "time_pressure_density",
+      "mean_signed_shap": -1.840644094461376,
+      "mean_abs_shap": 2.8937997609625374
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "ttr",
+      "mean_signed_shap": 0.6889853836234187,
+      "mean_abs_shap": 1.1462272746109106
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "mean_word_len",
+      "mean_signed_shap": -0.5158768934102131,
+      "mean_abs_shap": 1.3306359343742706
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "mean_sentence_len_tokens",
+      "mean_signed_shap": 0.7511138014624735,
+      "mean_abs_shap": 0.751773446019165
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "yules_k",
+      "mean_signed_shap": -0.46553755187424595,
+      "mean_abs_shap": 0.7318991433587467
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "clause_density",
+      "mean_signed_shap": -0.08864718438656315,
+      "mean_abs_shap": 0.1109157011143626
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "noun_ratio",
+      "mean_signed_shap": 0.23135004503580253,
+      "mean_abs_shap": 0.5213106313785978
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "verb_ratio",
+      "mean_signed_shap": 0.11418656161087486,
+      "mean_abs_shap": 0.11501762313285313
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "mean_parse_depth",
+      "mean_signed_shap": -0.052619805374377805,
+      "mean_abs_shap": 0.2259649934940897
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "imperative_count",
+      "mean_signed_shap": 0.131362318415621,
+      "mean_abs_shap": 0.1602172508895445
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "first_person_ratio",
+      "mean_signed_shap": -0.3525144743152456,
+      "mean_abs_shap": 0.5129549871276449
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "second_person_ratio",
+      "mean_signed_shap": 0.29711011372972373,
+      "mean_abs_shap": 0.36823962894220735
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "politeness_density",
+      "mean_signed_shap": 1.5731794824101135,
+      "mean_abs_shap": 1.6177879265547535
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "urgency_density",
+      "mean_signed_shap": -0.045760663948273585,
+      "mean_abs_shap": 0.12621829762584022
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "url_density",
+      "mean_signed_shap": 0.16628431673557267,
+      "mean_abs_shap": 0.2303070548976646
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "cta_density",
+      "mean_signed_shap": 0.6751001285773034,
+      "mean_abs_shap": 1.333734135345429
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "authority_density",
+      "mean_signed_shap": -0.21043029515565956,
+      "mean_abs_shap": 0.5619789963489508
+    },
+    {
+      "cohort": "both_missed",
+      "emails": 187,
+      "classifier": "catboost",
+      "feature": "time_pressure_density",
+      "mean_signed_shap": -0.6391456399234683,
+      "mean_abs_shap": 1.4465461830479658
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "ttr",
+      "mean_signed_shap": 2.3129164633769226,
+      "mean_abs_shap": 2.3176818186256583
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "mean_word_len",
+      "mean_signed_shap": 1.295270276283055,
+      "mean_abs_shap": 2.7575244843918445
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "mean_sentence_len_tokens",
+      "mean_signed_shap": 1.2608837918624352,
+      "mean_abs_shap": 1.2608837918624347
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "yules_k",
+      "mean_signed_shap": 0.4101056221704656,
+      "mean_abs_shap": 0.9637894147467247
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "clause_density",
+      "mean_signed_shap": -0.22470894446930134,
+      "mean_abs_shap": 0.22845297812033874
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "noun_ratio",
+      "mean_signed_shap": 0.4982865355304227,
+      "mean_abs_shap": 0.8526960520113787
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "verb_ratio",
+      "mean_signed_shap": 0.14199191790437596,
+      "mean_abs_shap": 0.1811490557255945
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "mean_parse_depth",
+      "mean_signed_shap": -0.1746349176559584,
+      "mean_abs_shap": 0.30692384591850724
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "imperative_count",
+      "mean_signed_shap": 0.26933759745535574,
+      "mean_abs_shap": 0.3395697967193765
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "first_person_ratio",
+      "mean_signed_shap": -0.36734698366485236,
+      "mean_abs_shap": 0.6436776416951168
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "second_person_ratio",
+      "mean_signed_shap": 0.3902196755423027,
+      "mean_abs_shap": 0.6215807490063717
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "politeness_density",
+      "mean_signed_shap": 5.4383921214690325,
+      "mean_abs_shap": 5.438392121469032
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "urgency_density",
+      "mean_signed_shap": -0.01925863776240168,
+      "mean_abs_shap": 0.309594163184575
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "url_density",
+      "mean_signed_shap": 0.35397397992047663,
+      "mean_abs_shap": 0.4335019964040248
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "cta_density",
+      "mean_signed_shap": 2.9641051654756905,
+      "mean_abs_shap": 3.1623796101113517
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "authority_density",
+      "mean_signed_shap": 0.4341234380030207,
+      "mean_abs_shap": 1.1958557016965823
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "lightgbm",
+      "feature": "time_pressure_density",
+      "mean_signed_shap": 1.195001652400835,
+      "mean_abs_shap": 3.0274245002670277
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "ttr",
+      "mean_signed_shap": 1.6968396965456136,
+      "mean_abs_shap": 1.6968396965456138
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "mean_word_len",
+      "mean_signed_shap": 0.6746204408409143,
+      "mean_abs_shap": 1.459161328538894
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "mean_sentence_len_tokens",
+      "mean_signed_shap": 0.905717649023431,
+      "mean_abs_shap": 0.9057176490234311
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "yules_k",
+      "mean_signed_shap": 0.09973969746534668,
+      "mean_abs_shap": 0.6701097955781613
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "clause_density",
+      "mean_signed_shap": -0.04689390339439514,
+      "mean_abs_shap": 0.08937763087011097
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "noun_ratio",
+      "mean_signed_shap": 0.42954101477661655,
+      "mean_abs_shap": 0.5829849231272809
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "verb_ratio",
+      "mean_signed_shap": 0.11888030463604865,
+      "mean_abs_shap": 0.12152971528176848
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "mean_parse_depth",
+      "mean_signed_shap": -0.07131798856708225,
+      "mean_abs_shap": 0.2505236940567428
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "imperative_count",
+      "mean_signed_shap": 0.12988764942939993,
+      "mean_abs_shap": 0.17483590326735854
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "first_person_ratio",
+      "mean_signed_shap": -0.043465859547374606,
+      "mean_abs_shap": 0.39663713733049133
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "second_person_ratio",
+      "mean_signed_shap": 0.3607604729526816,
+      "mean_abs_shap": 0.44154224238215534
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "politeness_density",
+      "mean_signed_shap": 1.872029324901286,
+      "mean_abs_shap": 1.8720293249012865
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "urgency_density",
+      "mean_signed_shap": 0.04710110290989611,
+      "mean_abs_shap": 0.15018217318661312
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "url_density",
+      "mean_signed_shap": 0.2760240677033476,
+      "mean_abs_shap": 0.3184535026687385
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "cta_density",
+      "mean_signed_shap": 1.6989840288366238,
+      "mean_abs_shap": 1.8041173504500747
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "authority_density",
+      "mean_signed_shap": 0.21804067193373086,
+      "mean_abs_shap": 0.7978643876044087
+    },
+    {
+      "cohort": "both_detected",
+      "emails": 96,
+      "classifier": "catboost",
+      "feature": "time_pressure_density",
+      "mean_signed_shap": 0.7093781627174062,
+      "mean_abs_shap": 1.7167413807900436
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "ttr",
+      "mean_signed_shap": 0.9248358342837484,
+      "mean_abs_shap": 2.420332697577704
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "mean_word_len",
+      "mean_signed_shap": -0.4577350337986968,
+      "mean_abs_shap": 3.0702144816700607
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "mean_sentence_len_tokens",
+      "mean_signed_shap": 1.1336614594144425,
+      "mean_abs_shap": 1.1336614594144425
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "yules_k",
+      "mean_signed_shap": -1.053190740754827,
+      "mean_abs_shap": 1.960118920308941
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "clause_density",
+      "mean_signed_shap": -0.1866418803323185,
+      "mean_abs_shap": 0.18772491960547144
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "noun_ratio",
+      "mean_signed_shap": 0.644200489323135,
+      "mean_abs_shap": 0.6886965209529616
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "verb_ratio",
+      "mean_signed_shap": 0.13446073239851436,
+      "mean_abs_shap": 0.1712659839761189
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "mean_parse_depth",
+      "mean_signed_shap": -0.11121570882660077,
+      "mean_abs_shap": 0.2602225096122915
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "imperative_count",
+      "mean_signed_shap": 0.18823005712358226,
+      "mean_abs_shap": 0.3486761424436578
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "first_person_ratio",
+      "mean_signed_shap": -0.26272358560846654,
+      "mean_abs_shap": 0.46918213824075
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "second_person_ratio",
+      "mean_signed_shap": 0.3189712078817339,
+      "mean_abs_shap": 0.5288475043745022
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "politeness_density",
+      "mean_signed_shap": 4.260227117772945,
+      "mean_abs_shap": 4.431820107480171
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "urgency_density",
+      "mean_signed_shap": -0.1871528936725003,
+      "mean_abs_shap": 0.4006247111240565
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "url_density",
+      "mean_signed_shap": 0.2999367304507316,
+      "mean_abs_shap": 0.4072126317522221
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "cta_density",
+      "mean_signed_shap": 1.6040027672785075,
+      "mean_abs_shap": 3.504083841581392
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "authority_density",
+      "mean_signed_shap": 0.22630452744276827,
+      "mean_abs_shap": 1.5671757884073458
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "lightgbm",
+      "feature": "time_pressure_density",
+      "mean_signed_shap": -1.5883115147145361,
+      "mean_abs_shap": 3.5929577323213318
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "ttr",
+      "mean_signed_shap": 1.4135957518779025,
+      "mean_abs_shap": 1.5224752346272998
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "mean_word_len",
+      "mean_signed_shap": 0.2445867749775763,
+      "mean_abs_shap": 1.5687606964470406
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "mean_sentence_len_tokens",
+      "mean_signed_shap": 0.8507211563371293,
+      "mean_abs_shap": 0.8507211563371292
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "yules_k",
+      "mean_signed_shap": -0.08245744129157821,
+      "mean_abs_shap": 0.8867075835643439
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "clause_density",
+      "mean_signed_shap": -0.04034582645060339,
+      "mean_abs_shap": 0.089699273987784
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "noun_ratio",
+      "mean_signed_shap": 0.5105491065110758,
+      "mean_abs_shap": 0.5446350246783349
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "verb_ratio",
+      "mean_signed_shap": 0.10982383429076668,
+      "mean_abs_shap": 0.11809811331130443
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "mean_parse_depth",
+      "mean_signed_shap": -0.05043229930288257,
+      "mean_abs_shap": 0.22784000331556747
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "imperative_count",
+      "mean_signed_shap": 0.10991869634124396,
+      "mean_abs_shap": 0.18565546005089006
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "first_person_ratio",
+      "mean_signed_shap": 0.005704666710129996,
+      "mean_abs_shap": 0.3121660695720467
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "second_person_ratio",
+      "mean_signed_shap": 0.3550959297323338,
+      "mean_abs_shap": 0.421562582899927
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "politeness_density",
+      "mean_signed_shap": 1.8267180054979142,
+      "mean_abs_shap": 1.8789413428763573
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "urgency_density",
+      "mean_signed_shap": -0.008562655931891842,
+      "mean_abs_shap": 0.14106989713387075
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "url_density",
+      "mean_signed_shap": 0.3292256557663707,
+      "mean_abs_shap": 0.3540166112835546
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "cta_density",
+      "mean_signed_shap": 1.6646086508752682,
+      "mean_abs_shap": 2.045655594453668
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "authority_density",
+      "mean_signed_shap": 0.29051851994750005,
+      "mean_abs_shap": 0.8796772130149411
+    },
+    {
+      "cohort": "lightgbm_only_missed",
+      "emails": 32,
+      "classifier": "catboost",
+      "feature": "time_pressure_density",
+      "mean_signed_shap": -0.3212777012503761,
+      "mean_abs_shap": 1.9099285292739534
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "ttr",
+      "mean_signed_shap": 1.7687643981723933,
+      "mean_abs_shap": 1.768764398172393
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "mean_word_len",
+      "mean_signed_shap": 0.1763643643377131,
+      "mean_abs_shap": 2.707447083661357
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "mean_sentence_len_tokens",
+      "mean_signed_shap": 1.2137001132231409,
+      "mean_abs_shap": 1.2137001132231409
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "yules_k",
+      "mean_signed_shap": 0.13182333982776334,
+      "mean_abs_shap": 0.8541767962882404
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "clause_density",
+      "mean_signed_shap": -0.28684066937289093,
+      "mean_abs_shap": 0.2868406693728908
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "noun_ratio",
+      "mean_signed_shap": 0.4336100663415353,
+      "mean_abs_shap": 0.9039714694095605
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "verb_ratio",
+      "mean_signed_shap": 0.18442613671796665,
+      "mean_abs_shap": 0.1879381470322942
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "mean_parse_depth",
+      "mean_signed_shap": -0.4221133550203599,
+      "mean_abs_shap": 0.453509227342304
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "imperative_count",
+      "mean_signed_shap": 0.33225858300785976,
+      "mean_abs_shap": 0.33225858300785976
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "first_person_ratio",
+      "mean_signed_shap": -0.6308098828364843,
+      "mean_abs_shap": 0.8134598169578293
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "second_person_ratio",
+      "mean_signed_shap": 0.5215220635195125,
+      "mean_abs_shap": 0.7182431949945709
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "politeness_density",
+      "mean_signed_shap": 4.890360574720923,
+      "mean_abs_shap": 4.890360574720923
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "urgency_density",
+      "mean_signed_shap": -0.13915190701753824,
+      "mean_abs_shap": 0.21984047272607848
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "url_density",
+      "mean_signed_shap": 0.36255497552146354,
+      "mean_abs_shap": 0.4031221093140269
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "cta_density",
+      "mean_signed_shap": 2.083935431669743,
+      "mean_abs_shap": 2.450961748873209
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "authority_density",
+      "mean_signed_shap": -0.08503835026779247,
+      "mean_abs_shap": 0.9311568948781047
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "lightgbm",
+      "feature": "time_pressure_density",
+      "mean_signed_shap": 0.19781113490903107,
+      "mean_abs_shap": 2.080284924959867
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "ttr",
+      "mean_signed_shap": 1.382005544172887,
+      "mean_abs_shap": 1.382005544172887
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "mean_word_len",
+      "mean_signed_shap": 0.09463057019950095,
+      "mean_abs_shap": 1.3563075985487136
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "mean_sentence_len_tokens",
+      "mean_signed_shap": 0.8048564600022007,
+      "mean_abs_shap": 0.8048564600022007
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "yules_k",
+      "mean_signed_shap": -0.11173505066526643,
+      "mean_abs_shap": 0.5553694257497742
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "clause_density",
+      "mean_signed_shap": -0.0936766514019047,
+      "mean_abs_shap": 0.1101396694413626
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "noun_ratio",
+      "mean_signed_shap": 0.35000273385671055,
+      "mean_abs_shap": 0.551365352192415
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "verb_ratio",
+      "mean_signed_shap": 0.12780163892409477,
+      "mean_abs_shap": 0.12780163892409477
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "mean_parse_depth",
+      "mean_signed_shap": -0.20888884336959787,
+      "mean_abs_shap": 0.2907697919308
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "imperative_count",
+      "mean_signed_shap": 0.15318958246159223,
+      "mean_abs_shap": 0.15318958246159223
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "first_person_ratio",
+      "mean_signed_shap": -0.2627575224406569,
+      "mean_abs_shap": 0.4947308466638113
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "second_person_ratio",
+      "mean_signed_shap": 0.32905546715675166,
+      "mean_abs_shap": 0.37367910045442826
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "politeness_density",
+      "mean_signed_shap": 1.6762261388938593,
+      "mean_abs_shap": 1.6762261388938593
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "urgency_density",
+      "mean_signed_shap": -0.07096105897671441,
+      "mean_abs_shap": 0.08124394012447513
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "url_density",
+      "mean_signed_shap": 0.26098812227305634,
+      "mean_abs_shap": 0.30760791582031016
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "cta_density",
+      "mean_signed_shap": 1.1088502134365268,
+      "mean_abs_shap": 1.4264893785047181
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "authority_density",
+      "mean_signed_shap": -0.15225786704613314,
+      "mean_abs_shap": 0.6094930560996901
+    },
+    {
+      "cohort": "catboost_only_missed",
+      "emails": 14,
+      "classifier": "catboost",
+      "feature": "time_pressure_density",
+      "mean_signed_shap": 0.02414697461476553,
+      "mean_abs_shap": 1.181291085397776
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "experiment_id": "random_forest_development_gpt-4.1_20261105T011645_d872d10f",
+  "status": "development_fit_complete",
+  "stage": "development_parameter_selection",
+  "classifier": "random_forest",
+  "training_generator": "gpt-4.1",
+  "development_records": 3998,
+  "class_counts": {
+    "0": 3000,
+    "1": 998
+  },
+  "features": [
+    "ttr",
+    "mean_word_len",
+    "mean_sentence_len_tokens",
+    "yules_k",
+    "clause_density",
+    "noun_ratio",
+    "verb_ratio",
+    "mean_parse_depth",
+    "imperative_count",
+    "first_person_ratio",
+    "second_person_ratio",
+    "politeness_density",
+    "urgency_density",
+    "url_density",
+    "cta_density",
+    "authority_density",
+    "time_pressure_density"
+  ],
+  "feature_version": "original_17_reproduced",
+  "split_version": "splits_v2",
+  "cv_manifest": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\development_cv_gpt-4.1.csv",
+  "knn_reference_experiments": [
+    "knn_gpt-4.1_20261029T211539_931f3ade"
+  ],
+  "seed": 42,
+  "candidate_count": 20,
+  "fit_count": 101,
+  "best_parameters": {
+    "random_forest__max_depth": 16,
+    "random_forest__min_samples_leaf": 1,
+    "random_forest__n_estimators": 100
+  },
+  "full_model_parameters": {
+    "bootstrap": true,
+    "ccp_alpha": 0.0,
+    "class_weight": null,
+    "criterion": "gini",
+    "max_depth": 16,
+    "max_features": "sqrt",
+    "max_leaf_nodes": null,
+    "max_samples": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 1,
+    "min_samples_split": 2,
+    "min_weight_fraction_leaf": 0.0,
+    "monotonic_cst": null,
+    "n_estimators": 100,
+    "n_jobs": 1,
+    "oob_score": false,
+    "random_state": 42,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "selection_cv_mean_f1": 0.9874657372763433,
+  "calibration_records_used": 0,
+  "final_test_records_used": 0,
+  "versions": {
+    "python": "3.13.5",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.4",
+    "joblib": "1.6.0",
+    "random_forest": "1.9.1"
+  },
+  "input_hashes": {
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\corpus_features.csv": "1c76c1732abf1722ee1646e898f8333967516ec96161d24951aee45f46d2e41a",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\human_corpus_sampled.csv": "259c36f2825b4230aeaac9b9c3d61a22e1233e0e741eb1d371cdbb96cc1d8065",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\data\\llm_corpus_sampled.csv": "6232d0c864839029500236ce807d060ecf642733452ce8b0f4f26754e2ed41f7",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\summary.json": "c1cc4fc4fc29020761aacad00e226271211c7aad4de530e1a502d35536b7e0a6",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\manifest.csv": "4eaff232344d7da3e345a720e2fec3acc02f17e1ac5749573806e4b42d69e316",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\similarity_pairs.csv": "af6b0b7739678d467998c39007654324a996a21ea1d7d7d32bdf10514716a0ed",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\knn_detector.py": "e945b65c2dd34eb129e421da333ed85f28a6b88ada01b9e1bcf8e2d126582f28",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\feature_validation.py": "c78488b29cf692ca5ec9803b9e0279e3432347845aaddf925104656dfd585d78",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\experiments\\splits_v2\\development_cv_gpt-4.1.csv": "f1d90a959e4d7c4cd47ac2970edcfcb7fb144fddb1ac7290efb070bd4cde4eb7",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\ledger\\development\\knn\\knn_gpt-4.1_20261029T211539_931f3ade.json": "2e67cd2be14ff7641968b8dfc241824a8f6b80be3dec02091c52d83449d437b6",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\random_forest_detector.py": "1eff3e7d691522c37c97a8cbecf2bd7665681dd771aae54b2e89c154e7ce86ed",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\train_benchmark.py": "e409dac5125a48b5d15555defbdf955e9bf7e6fd995018598fc594de94451177",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\train_knn.py": "3c05aa99bbfa4c3e226805ae77b3f4b48dd4cf453e1aec3401f9225458933df7",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\train_lightgbm.py": "02e34b0effab16599d4428a36367aeb82a6ded7e2909dc2b6f095df654d4e50a",
+    "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\src\\evaluate_intra_model.py": "d51a3f0017725b8be40d14d727c6dba5d6c91a27d9e88eb5a57efb1868c26550"
+  },
+  "result_directory": "C:\\DBS\\Sem 2\\Aplied Research\\reff\\CME\\results\\development\\random_forest\\random_forest_development_gpt-4.1_20261105T011645_d872d10f",
+  "output_hashes": {
+    "development_model.joblib": "26f2181034dd7c76bdf9a3913a98d71dd715b47ee55abb479c7a256a1635b7cd",
+    "development_parameter_search.csv": "77a9b70fbc13ef10b2423199e526d188ef607c7ce3135c16c13c9fb280c6ff7f"
+  }
+}
