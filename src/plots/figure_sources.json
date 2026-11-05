@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "purpose": "Pinned sources for reconstructed reproducible paper plots; no automatic latest-run selection",
+  "runs": {
+    "intra_model|knn|gpt-4.1": {
+      "path": "ledger/intra_model/knn/knn_intra_model_gpt-4.1_20261102T194041_5f3ebe8f.json",
+      "sha256": "b38e4a8b51b394a1337a2551e16eebb386bd913403c59308aa8daf876278f75a"
+    },
+    "intra_model|knn|deepseek3.2": {
+      "path": "ledger/intra_model/knn/knn_intra_model_deepseek3.2_20261102T194406_d0ab6cf3.json",
+      "sha256": "cb51e5c35b0853114f267bad2811266d2473ae426dc96e20e47eff9950091486"
+    },
+    "intra_model|knn|llama-3.3-70b": {
+      "path": "ledger/intra_model/knn/knn_intra_model_llama-3.3-70b_20261102T194649_9d7b48eb.json",
+      "sha256": "a269df6c5b127de1b56e932f148e5a627df019544fd5c278923b95c1466c1dab"
+    },
+    "intra_model|lightgbm|gpt-4.1": {
+      "path": "ledger/intra_model/lightgbm/lightgbm_intra_model_gpt-4.1_20261102T220053_c548981a.json",
+      "sha256": "14edad69bf61a331d280cca17f765b79420d2d56b14e033b6128f712829f8ca2"
+    },
+    "intra_model|lightgbm|deepseek3.2": {
+      "path": "ledger/intra_model/lightgbm/lightgbm_intra_model_deepseek3.2_20261102T221048_eda1ab43.json",
+      "sha256": "1ced1f6704abd19ba0c47b8ab530f42ffb49a7e4492bec01cf97927ea61f328f"
+    },
+    "intra_model|lightgbm|llama-3.3-70b": {
+      "path": "ledger/intra_model/lightgbm/lightgbm_intra_model_llama-3.3-70b_20261102T222340_dde01e0a.json",
+      "sha256": "24f892c022354f8418f188f628ddac60bf57746ea882af36c1e10ffc79f712bd"
+    },
+    "intra_model|catboost|gpt-4.1": {
+      "path": "ledger/intra_model/catboost/catboost_intra_model_gpt-4.1_20261102T222831_c0aa4e92.json",
+      "sha256": "4154332c520b85deea82e6126d076c2411f8cd48f5476c7f11a6c45b909ede9f"
+    },
+    "intra_model|catboost|deepseek3.2": {
+      "path": "ledger/intra_model/catboost/catboost_intra_model_deepseek3.2_20261102T224509_5d98fa9e.json",
+      "sha256": "525fda2d73b838bd932fd604b2ef3c877b9a37ee56243fceeab4e4f66d6c41bb"
+    },
+    "intra_model|catboost|llama-3.3-70b": {
+      "path": "ledger/intra_model/catboost/catboost_intra_model_llama-3.3-70b_20261102T230020_227848ab.json",
+      "sha256": "b2b3873df70d4b50141d83e5532f18c8e683957561942d5ad8cf3c33af3bb6a4"
+    },
+    "intra_model|xgboost|gpt-4.1": {
+      "path": "ledger/intra_model/xgboost/xgboost_intra_model_gpt-4.1_20261105T013409_38ae5961.json",
+      "sha256": "eb2f449696a6138a716a04127d7f73c7eddc6f86c2119185570675918db762ab"
+    },
+    "intra_model|xgboost|deepseek3.2": {
+      "path": "ledger/intra_model/xgboost/xgboost_intra_model_deepseek3.2_20261105T013612_3c47f297.json",
+      "sha256": "32eac0c1c154e314f3c969d857a7fe9ad73f8ef5711061ad0140646f00fddf54"
+    },
+    "intra_model|xgboost|llama-3.3-70b": {
+      "path": "ledger/intra_model/xgboost/xgboost_intra_model_llama-3.3-70b_20261105T013708_4768a3b3.json",
+      "sha256": "26b59bcf84dde9c1be5f08c5116e93ee3b6d73988ec21b5692f19f164b85f2b5"
+    },
+    "intra_model|random_forest|gpt-4.1": {
+      "path": "ledger/intra_model/random_forest/random_forest_intra_model_gpt-4.1_20261105T013804_2fc6ac0f.json",
+      "sha256": "95c711f9db78b190d5d922bdac8d92c938ec5e18a7014b7c0bc774615a3aa9cb"
+    },
+    "intra_model|random_forest|deepseek3.2": {
+      "path": "ledger/intra_model/random_forest/random_forest_intra_model_deepseek3.2_20261105T014054_5c135b4e.json",
+      "sha256": "571fd680bea18b8983202543f50951b9ab2bf6d882bcd6ff63495ec2e22d9297"
+    },
+    "intra_model|random_forest|llama-3.3-70b": {
+      "path": "ledger/intra_model/random_forest/random_forest_intra_model_llama-3.3-70b_20261105T014438_8b8e9100.json",
+      "sha256": "57982d7770090d1a91b06ee4bbdbfb55fe0bbf9a5f6ece2d1aeb7e43defcad57"
+    },
+    "cross_model|knn|all": {
+      "path": "ledger/cross_model/knn/knn_cross_model_20261103T021221_45fd3a12.json",
+      "sha256": "0e727ff1e4ca1d2f99a61626cdbd44e005420362287d0cb74baed28a6131e8d6"
+    },
+    "cross_model|lightgbm|all": {
+      "path": "ledger/cross_model/lightgbm/lightgbm_cross_model_20261103T022903_7b14492e.json",
+      "sha256": "505d0ae90bd0e762bb7d3078e414159246f9f5133cff613bbe1d1a7ea422984e"
+    },
+    "cross_model|catboost|all": {
+      "path": "ledger/cross_model/catboost/catboost_cross_model_20261103T023109_e651ca95.json",
+      "sha256": "24f9adf8c1e0a6f6525919f981a4d9b0a8809cd260f155038caf4297ecb90dc4"
+    },
+    "cross_model|xgboost|all": {
+      "path": "ledger/cross_model/xgboost/xgboost_cross_model_20261105T020322_03ccc83c.json",
+      "sha256": "e252f14804ceaddc22ae20499585ee1b15ca735d8e9f2e37c4e6bb36aed74085"
+    },
+    "cross_model|random_forest|all": {
+      "path": "ledger/cross_model/random_forest/random_forest_cross_model_20261105T020330_20f5c30a.json",
+      "sha256": "c648380026b3193d4b4d9dbccef7eb3009bb8baa9f86341b3ab544791fdf904a"
+    },
+    "recalibration|knn|all": {
+      "path": "ledger/recalibration/knn/knn_recalibration_20261103T175245_dee4ad32.json",
+      "sha256": "582eddfdd90f5cddf68c1df19fcc521a4a30e222f3bd6063af136b00e051b5f9"
+    },
+    "recalibration|lightgbm|all": {
+      "path": "ledger/recalibration/lightgbm/lightgbm_recalibration_20261103T175729_0b35dc90.json",
+      "sha256": "d7a81aa384f238da5c1dff5f861e626e7faafb3f8471e4de7d0f1d670f436cad"
+    },
+    "recalibration|catboost|all": {
+      "path": "ledger/recalibration/catboost/catboost_recalibration_20261103T180025_a08d1655.json",
+      "sha256": "e4b8d661136ae388d1f4c6555f3b450aa4cb5731258b5089191bf2e525cdc199"
+    },
+    "recalibration|xgboost|all": {
+      "path": "ledger/recalibration/xgboost/xgboost_recalibration_20261105T020742_05934889.json",
+      "sha256": "8e80d40e9f3787c3a888e76f4ee236a03d5539bd24502f9704cc1c3514c910f0"
+    },
+    "recalibration|random_forest|all": {
+      "path": "ledger/recalibration/random_forest/random_forest_recalibration_20261105T020747_87787f60.json",
+      "sha256": "1351801ff60ebce28e6cca8a5d21ed803517f23d6df3d4b734415ff48c4d160c"
+    },
+    "cross_dataset|knn|all": {
+      "path": "ledger/cross_dataset/knn/knn_cross_dataset_20261103T182608_46ea6d4b.json",
+      "sha256": "d7eb74ec0b6ca8b68cc0a35aa199d1b96d98666624429f081df79cd04f7d60d5"
+    },
+    "cross_dataset|lightgbm|all": {
+      "path": "ledger/cross_dataset/lightgbm/lightgbm_cross_dataset_20261103T183003_94c06a3d.json",
+      "sha256": "5cc56447aec6d4fd6b997784e518411f29d94d80ecd517a88ef059eb7c442ba2"
+    },
+    "cross_dataset|catboost|all": {
+      "path": "ledger/cross_dataset/catboost/catboost_cross_dataset_20261103T183336_8ec5b9ed.json",
+      "sha256": "349a6fa57c2628026dca07ce528d8b591fcfb5dfc775d2c97c64de4bd544dcf0"
+    },
+    "cross_dataset|xgboost|all": {
+      "path": "ledger/cross_dataset/xgboost/xgboost_cross_dataset_20261105T023700_a515eb89.json",
+      "sha256": "4d62958361e48f1a72ff13825a84a3b63fe7ff0c1073d4698b7f2c1ab06d17bb"
+    },
+    "cross_dataset|random_forest|all": {
+      "path": "ledger/cross_dataset/random_forest/random_forest_cross_dataset_20261105T023823_f0733d85.json",
+      "sha256": "2e8aa33b683adad9e89e8f5f67d3dc757f34d2fa9c062692cc3efb3ec61d8334"
+    },
+    "aggregated_pool|knn|all": {
+      "path": "ledger/aggregated_pool/knn/knn_aggregated_pool_20261103T184614_62694cbe.json",
+      "sha256": "152e4ebacf467b2fbdf5acdca84b9076691a7f160747e200912bada076647191"
+    },
+    "aggregated_pool|lightgbm|all": {
+      "path": "ledger/aggregated_pool/lightgbm/lightgbm_aggregated_pool_20261103T184900_bdd5539e.json",
+      "sha256": "ba3ac5eddef012a24d5a9fdbbed17ca6404bc8caf7a067de5a49cb25f7892a43"
+    },
+    "aggregated_pool|catboost|all": {
+      "path": "ledger/aggregated_pool/catboost/catboost_aggregated_pool_20261103T185359_df4f6483.json",
+      "sha256": "9a137635cb25fc666271ce42816b8c3e7a51dc1c9ef11b4d3ebab4875a398f48"
+    },
+    "aggregated_pool|xgboost|all": {
+      "path": "ledger/aggregated_pool/xgboost/xgboost_aggregated_pool_20261105T024934_cdf720f2.json",
+      "sha256": "79b628d54a4a71c72c985f71eebe1523034bf84f7af8124719b877bba2dca355"
+    },
+    "aggregated_pool|random_forest|all": {
+      "path": "ledger/aggregated_pool/random_forest/random_forest_aggregated_pool_20261105T025122_107ccacf.json",
+      "sha256": "81d4d5e23c0e742b546f494e09d999449e7f9f635df205956c491c5de963ee92"
+    },
+    "shap|catboost|all": {
+      "path": "ledger/shap/catboost/catboost_shap_20261104T205638_90dceaf4.json",
+      "sha256": "40c6dfb52fb8e25690a28f515875be2c9300ea79e4b1d60fa43c0358b2e80116"
+    }
+  }
+}

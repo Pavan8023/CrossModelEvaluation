@@ -1,0 +1,1549 @@
+% !TeX program = pdflatex
+% One-file IEEE conference manuscript: references are embedded below.
+% Figures are regenerated from saved results by the scripts in src/plots/.
+% Compile with pdfLaTeX. Run twice when compiling locally.
+% Float boundaries keep methodology floats within Methodology.
+% The final float barrier keeps results before the compact bibliography.
+
+\documentclass[conference]{IEEEtran}
+
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{cite}
+\usepackage{xurl}
+\usepackage[section]{placeins}
+\usepackage{stfloats}
+
+% Wide figures may appear at either page margin alongside ordinary text.
+% Compact, flexible spacing for ordinary single-column score tables.
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{6pt plus 1pt minus 1pt}
+\setlength{\intextsep}{6pt plus 1pt minus 1pt}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.08}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{6}
+\renewcommand{\dbltopfraction}{0.9}
+\renewcommand{\dblfloatpagefraction}{0.8}
+\setlength{\dbltextfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\dblfloatsep}{6pt plus 1pt minus 1pt}
+\AtBeginDocument{\raggedbottom}
+
+\urlstyle{same}
+
+% Ragged-right paragraph columns allow long table descriptions to wrap.
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+% Shrink a natural-width table only when it exceeds the available width.
+% Use inside a table/table* float around its tabular environment.
+\newsavebox{\PaperTableBox}
+\newenvironment{FitTable}{%
+  \begin{lrbox}{\PaperTableBox}%
+}{%
+  \end{lrbox}%
+  \ifdim\wd\PaperTableBox>\linewidth
+    \resizebox{\linewidth}{!}{\usebox{\PaperTableBox}}%
+  \else
+    \usebox{\PaperTableBox}%
+  \fi
+}
+
+% The scripts in src/plots/ regenerate these files from saved results.
+% Standard graphicx search paths support both the project root and paper/.
+\graphicspath{{./}%
+  {figures/cross_model/}{../figures/cross_model/}%
+  {figures/recalibration/}{../figures/recalibration/}%
+  {figures/cross_dataset/}{../figures/cross_dataset/}%
+  {figures/aggregated_pool/}{../figures/aggregated_pool/}%
+  {figures/shap/catboost/}{../figures/shap/catboost/}}
+% Require the actual images: missing files must not silently become blanks.
+% The second argument is retained to preserve the original figure calls.
+\newcommand{\PaperFigure}[2]{%
+  \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{#1}%
+}
+
+% Add the approved author and keywords if required.
+
+\title{Cross-Generator Evaluation of Stylometric Classifiers for Phishing Email Authorship}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Large language models (LLMs) can produce fluent phishing emails,
+but detectors trained on one generator may lose effectiveness
+when the generator changes. Building on the benchmark of
+Gutierrez et al., this study compares k-nearest neighbors (KNN),
+LightGBM, CatBoost, XGBoost, and Random Forest for distinguishing
+human-written from LLM-generated phishing. We reuse 9,986 emails
+from five human-email sources and three generators: GPT-4.1,
+DeepSeek 3.2, and Llama 3.3 70B. All 17 released stylometric
+features were reproduced before reuse. Python pipelines applied
+shared similarity-grouped development, calibration, and test
+partitions, training-only KNN standardization, and group-aware
+nested validation. Five evaluations examined intra-model,
+cross-model, threshold-recalibrated, cross-dataset, and
+aggregated-pool performance. LightGBM achieved the highest
+mean intra-model F1 of 0.9907, whereas KNN achieved the highest
+default different-generator mean F1 of 0.9120. Default transfer
+gaps ranged from 5.31 to 31.90 percentage points. Recalibration
+improved mean transfer F1 for every classifier, with CatBoost
+reaching 0.9244; recovered misses involved false-positive
+trade-offs. Pooled XGBoost achieved overall F1 of 0.9975,
+with five human false positives and no generated-email misses.
+Human-source holdout revealed source-dependent errors.
+CatBoost SHAP reproduced the published XGBoost top-five feature
+membership and identified negative mean time-pressure
+contributions among missed Llama emails, providing associative
+rather than causal evidence. An accountability ledger links
+predictions, configurations, metrics, and hashed artifacts.
+The findings demonstrate the need to assess generator transfer,
+human-source variation, and threshold-dependent errors alongside
+familiar-generator performance.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+Phishing emails use deceptive messages to persuade recipients to
+disclose information or perform actions that benefit an attacker.
+Detection research has examined message content, linguistic patterns,
+and machine learning as ways to identify these threats
+\cite{salloum2022}. Large language models (LLMs) add to this challenge
+by enabling the production of fluent, context-specific messages with
+limited manual effort. Studies of generated phishing have demonstrated
+both its ability to elicit recipient interaction and its capacity to
+bypass some commercial email filters
+\cite{heiding2024,opara2025}. These developments motivate examining
+how detection methods behave when the characteristics of the
+evaluated emails change.
+
+Current research approaches this problem from several directions.
+Some studies use language models to classify emails and explain
+their decisions~\cite{koide2026}. Others extract stylometric features,
+such as vocabulary variety, sentence structure, and persuasion
+markers, and supply these measurements to conventional
+classifiers~\cite{opara2025}. Research on general generated-text
+detection also examines robustness across domains and generators.
+MAGE demonstrated the difficulty of evaluating detectors on
+unfamiliar sources~\cite{li2024mage}, while Borile and
+Abrate~\cite{borile2025} investigated how dataset-specific patterns
+can limit generalization. Together, these studies show why performance
+on familiar data provides only part of the evidence needed to assess
+a detector.
+
+The present study examines authorship within phishing emails.
+Its classifiers distinguish human-written phishing from
+LLM-generated phishing. This authorship signal can support the
+analysis of generated threats within a broader email-security
+workflow. Evaluating it requires attention to both sides of the
+classification problem. A model can miss generated emails, and it
+can also incorrectly classify human-written emails as generated.
+
+Gutierrez et al.~\cite{gutierrez2026} investigated this task using
+17 stylometric features and phishing emails from three generators.
+Their evaluation of Logistic Regression and XGBoost showed that
+strong performance within a generator can coexist with a substantial
+performance drop when the generator changes. They further examined
+threshold recalibration and training on a pooled generator dataset.
+Their results motivate a broader question about classifier choice.
+When the same features and evaluation records are used, do different
+classifiers exhibit the same transfer weaknesses, and does threshold
+adjustment produce similar benefits and error trade-offs?
+
+This question is important because a higher aggregate score can
+hide changes in the types of mistakes a model makes. A lower
+threshold may recover generated emails while increasing false
+positives on human-written emails. Changes in the human-email
+source may also affect performance, even when the generated-email
+pool is held fixed. In addition, a feature that ranks highly overall
+may contribute differently to missed and correctly detected emails.
+Examining these effects requires connecting aggregate metrics with
+individual predictions and feature contributions.
+
+We address these questions through an independent extension of the
+released benchmark. The study reuses 9,986 phishing emails and
+verifies the 17 released stylometric features. It compares
+k-nearest neighbors, LightGBM, CatBoost, XGBoost, and Random
+Forest using shared evaluation partitions that keep identified
+similar emails together. The five evaluation conditions are
+intra-model testing, cross-model testing, threshold recalibration,
+cross-dataset human-source holdout, and aggregated-pool training.
+
+The study addresses four research questions:
+\begin{enumerate}
+    \item How does classifier choice affect performance within a
+    generator and transfer to a different generator?
+
+    \item How much does threshold recalibration improve transfer
+    performance, and how does it change missed detections and
+    human-email false positives?
+
+    \item How do changes in the human-email source and pooled
+    generator training affect classifier performance?
+
+    \item Which stylometric features contribute to the examined
+    predictions, and how do CatBoost's feature rankings compare
+    with the published XGBoost rankings?
+\end{enumerate}
+
+The contributions are a consistent five-classifier benchmark,
+an analysis of performance gaps and their associated errors,
+and a focused SHAP investigation of feature contributions.
+An accountability ledger records experimental settings and links
+results to individual predictions and saved artifacts. This
+supports verification of the reported findings and provides a
+traceable foundation for future experiments.
+
+\section{Related Work}
+\label{sec:related-work}
+
+\subsection{Phishing Email Detection}
+
+Salloum et al.~\cite{salloum2022} examined the difficulty of detecting
+phishing emails as attackers change their language and delivery
+strategies. Their systematic review covered natural language processing
+and machine learning approaches, including datasets, feature
+representations, classification methods, and evaluation measures. The
+review organized the available techniques and resources and discussed
+directions for improving content analysis. It provides a foundation
+for assessing how dataset selection and feature representation influence
+the evidence produced by a phishing detection study.
+
+Chataut et al.~\cite{chataut2024} investigated whether large language
+models could identify phishing emails despite increasingly sophisticated
+attacks. They compared GPT-3.5, GPT-4, and a customized ChatGPT
+configuration using phishing and legitimate emails. Their findings
+showed that the models could identify phishing attempts, with performance
+varying across configurations. The study illustrates the potential of
+language models as detectors and the importance of model selection.
+Its classification task concerns malicious intent, while the present
+study concerns human or machine authorship within phishing emails.
+
+Koide et al.~\cite{koide2026} addressed both detection errors and the
+difficulty users face in understanding why a message has been flagged.
+They introduced ChatSpamDetector, which converts email content into
+prompts for language-model analysis and returns a phishing decision
+with supporting explanations. Their GPT-4 configuration achieved a
+reported accuracy of 99.70\%. This work combines classification with
+reasoning that users can inspect. Its results concern phishing detection
+using a language model as the detector, providing a different setting
+from feature-based authorship classification.
+
+\subsection{Generated Phishing and Its Effectiveness}
+
+Heiding et al.~\cite{heiding2024} investigated whether language models
+could reduce the effort required to produce persuasive phishing
+messages. They compared GPT-4-generated emails, manually designed
+emails based on the V-Triad persuasion framework, a combination of
+GPT-4 and V-Triad, and generic control emails. Their study involved
+112 participants. The reported click-through range was 30--44\% for
+GPT-generated emails and 19--28\% for the control group. The authors
+also tested language models on identifying malicious email intent.
+The findings show that generated messages can elicit user interaction,
+motivating defensive evaluation. Click-through rates measure recipient
+behavior and therefore require a different interpretation from the
+classification metrics used in the present study.
+
+\subsection{Stylometric Classification of Generated Text and Phishing}
+
+Opara~\cite{opara2024styloai} examined which measurable writing
+characteristics could distinguish generated text from human-authored
+text. The proposed StyloAI system combined 31 stylometric features
+with a Random Forest classifier and was evaluated on the
+AuTextification and Education datasets. It achieved reported test
+accuracies of 81\% and 98\%, respectively. These results demonstrate
+that writing-style features can support authorship classification,
+while the different scores illustrate the importance of evaluating
+performance on each dataset. StyloAI provides a methodological
+connection to the Random Forest component of the present study,
+although its evaluations concern general text rather than phishing
+authorship.
+
+Opara et al.~\cite{opara2025} subsequently investigated whether
+commercial filters and feature-based classifiers could identify
+generated phishing. They constructed 63 phishing emails and 63
+legitimate emails using GPT-4o and evaluated Gmail, Outlook, and
+Yahoo filtering behavior. They also trained Logistic Regression,
+a support vector machine, Random Forest, and XGBoost using 60
+stylometric and linguistic features. Reported accuracies were 96\%
+for XGBoost, 92\% for Random Forest and Logistic Regression, and
+85\% for the support vector machine. XGBoost achieved a receiver
+operating characteristic area of 0.99. The study supports examining
+linguistic features with conventional classifiers, but its single-generator
+phishing-versus-legitimate task differs from the authorship task
+investigated here.
+
+\subsection{Generalization Across Generators and Domains}
+
+Li et al.~\cite{li2024mage} addressed a limitation of generated-text
+detection research in which evaluation was restricted to particular
+domains or language models. They introduced MAGE, a benchmark
+covering ten domains and text produced by 27 language models.
+The evaluation included increasingly difficult conditions involving
+unseen domains and generators. Performance declined as the test
+distribution differed from training. In one configuration combining
+unseen domains and an unseen generator, a Longformer-based detector
+achieved 84.12\% recall on generated text. These findings motivate
+explicit transfer evaluations. MAGE concerns general text detection,
+so its scores provide context for robustness rather than a directly
+comparable phishing benchmark.
+
+Borile and Abrate~\cite{borile2025} investigated why transformer-based
+generated-text detectors generalize poorly across domains. They
+examined confounding neurons that encode dataset-specific patterns
+and proposed interventions that suppress their influence. Their
+experiments showed reduced topic-specific bias and improved
+generalization across domains. This work highlights how a detector
+can depend on patterns associated with its training data. It motivates
+examining source changes and model behavior in the present study,
+while explanations of individual predictions remain evidence about
+the fitted classifier's behavior.
+
+\subsection{Cross-Generator Phishing Authorship Detection}
+
+Gutierrez et al.~\cite{gutierrez2026} directly investigated whether
+stylometric phishing authorship detectors transfer between generators.
+They assembled 9,986 emails comprising human-written phishing
+and phishing generated by GPT-4.1, DeepSeek 3.2, and Llama 3.3 70B.
+Using 17 stylometric features, they evaluated Logistic Regression
+and XGBoost under intra-model, cross-model, threshold-recalibrated,
+cross-dataset, and aggregated-pool conditions.
+
+XGBoost achieved intra-generator F1 scores from 0.9516 to 0.9650.
+The reported mean same-generator versus different-generator F1 gap
+was 28.0 percentage points at the default threshold. Although F1
+declined under generator changes, receiver operating characteristic
+area remained above 0.96 in every different-generator cell. Threshold
+recalibration reduced the gap to 4.0 percentage points, while pooled
+training achieved a reported F1 of 0.997 for each generator. Their
+SHAP analysis identified politeness density and type-token ratio
+among the five most important features for all three generator-specific
+XGBoost models. These findings established the benchmark and
+evaluation questions extended by the present study.
+
+The present research compares k-nearest neighbors, LightGBM,
+CatBoost, XGBoost, and Random Forest using the released features
+and consistent evaluation partitions. It extends the analysis through
+group-aware partitioning, prediction-level accountability records,
+and examination of missed detections and human-email false
+positives. A focused SHAP comparison investigates feature
+contributions on the same Llama emails. Comparisons with published
+scores account for differences in class definitions, data partitions,
+model selection, and metric aggregation.
+
+\section{Methodology}
+\label{sec:methodology}
+
+\subsection{Research Design and Dataset}
+
+This study extended the phishing authorship benchmark released by
+Gutierrez et al.~\cite{gutierrez2026}. We reused the released dataset
+and its 17 stylometric features to compare five classifiers under
+consistent experimental conditions. The classification target was
+authorship within phishing emails. Human-written phishing was
+assigned label 0, and language-model-generated phishing was assigned
+label 1.
+
+The corpus contained 9,986 emails, comprising 5,000 human-written
+emails and 4,986 generated emails. The generated subset contained
+1,665 GPT-4.1 emails, 1,665 DeepSeek 3.2 emails, and 1,656
+Llama 3.3 70B emails. The human subset combined CEAS-08,
+TREC-07, Nazario, Nigerian Fraud, and a fraud-labeled Enron subset.
+The released source and authorship labels were retained. The
+generated emails covered banking, parcel delivery, IT support,
+tax, and human resources. The dataset and reference code are
+available in the authors' version-1 Zenodo
+archive~\cite{gutierrezdataset2026}; this study reused the emails
+and did not generate a new corpus.
+
+Original dataset files were preserved. File hashes, record
+identifiers, source labels, and feature order were checked to
+maintain traceability between the released data and the experiments.
+
+\subsection{Stylometric Features and Validation}
+
+All five classifiers received the same 17 numerical features,
+organized into lexical, syntactic, stylistic, and phishing-specific
+categories. Table~\ref{tab:stylometric-features} describes their
+calculations. Features were reproduced from the stored email text
+using the released extraction conventions, including the original
+lexicons and rounding precision. The stored text combined subject
+and body content and retained its original formatting.
+
+Reproduction used spaCy 3.8.16 with the English
+\texttt{en\_core\_web\_sm} model, version 3.8.0. The full-corpus
+validation reproduced all 17 stored feature values for all 9,986
+records after rounding. This established agreement with the released
+implementation. The subsequent analyses examined the behavior
+of those features within the fitted classifiers.
+
+\begin{table*}[!tp]
+\centering
+\small
+\caption{The 17 reused stylometric features and their extraction
+conventions. Here, $N$ is the number of alphabetic word tokens,
+$T$ is the number of non-whitespace tokens, and $S$ is the number
+of sentences.}
+\label{tab:stylometric-features}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\textwidth}{
+    @{}L{0.14\textwidth}L{0.25\textwidth}Y@{}
+}
+\toprule
+Category & Feature & Measurement \\
+\midrule
+
+Lexical
+& Type-token ratio
+& Number of distinct lowercased words divided by $N$. \\
+
+& Mean word length
+& Mean number of characters per alphabetic word token. \\
+
+& Mean sentence length
+& $T/S$, including punctuation tokens in $T$. \\
+
+& Yule's $K$
+& Word-frequency concentration, calculated as
+$10^{4}(\sum_w f_w^2-N)/N^2$, where $f_w$ is the frequency
+of word $w$. \\
+
+\midrule
+
+Syntactic
+& Clause density
+& Number of tokens with dependency labels
+\texttt{ROOT}, \texttt{ccomp}, \texttt{advcl},
+\texttt{relcl}, or \texttt{xcomp}, divided by $S$. \\
+
+& Noun ratio
+& Number of tokens tagged \texttt{NOUN}, divided by $T$. \\
+
+& Verb ratio
+& Number of tokens tagged \texttt{VERB}, divided by $T$. \\
+
+& Mean dependency-parse depth
+& Mean token distance from the dependency root. The released
+convention includes whitespace tokens and caps depth at 200. \\
+
+\midrule
+
+Stylistic
+& Imperative count
+& Heuristic count of sentences whose first non-whitespace token
+has tag \texttt{VB} and dependency label \texttt{ROOT}
+or \texttt{ccomp}. \\
+
+& First-person pronoun ratio
+& Matches to the released first-person pronoun list, divided by $N$. \\
+
+& Second-person pronoun ratio
+& Matches to the released second-person pronoun list, divided by $N$. \\
+
+& Politeness density
+& Matches to the released politeness lexicon per 100 word tokens. \\
+
+& Urgency density
+& Matches to the released urgency lexicon per 100 word tokens. \\
+
+\midrule
+
+Phishing-specific
+& URL density
+& URL pattern matches per 100 word tokens. \\
+
+& Call-to-action density
+& Matches to the released action-request lexicon per 100 word tokens. \\
+
+& Authority-appeal density
+& Matches to the released authority lexicon per 100 word tokens. \\
+
+& Time-pressure density
+& Matches to the released deadline and time-pressure lexicon
+per 100 word tokens. \\
+
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsection{Partitioning and Similarity Groups}
+
+To reduce overlap between partitions, emails were grouped using
+text similarity. For grouping, whitespace was collapsed and text
+was case-folded. Each email was represented by binary word
+trigrams, and pairs with cosine similarity of at least 0.88 were
+linked. Connected components formed the final similarity groups.
+This representation was used exclusively for grouping.
+
+Group-aware stratification approximately balanced authorship,
+source, and generated-email category. The resulting allocation
+contained 5,991 development records, 1,998 calibration records,
+and 1,997 final-test records. Development contained 3,000 human
+emails and 2,991 generated emails. Calibration contained 1,000
+human emails and 998 generated emails, while testing contained
+1,000 human emails and 997 generated emails.
+
+Record and group identifiers were saved in split manifests.
+Checks confirmed that no identified similarity group crossed
+these partitions. Within development, validation folds also kept
+each group together. Whitespace normalization used for grouping
+did not replace the stored text or feature values.
+
+\subsection{Classifiers and Model Selection}
+
+We evaluated k-nearest neighbors (KNN), LightGBM, CatBoost,
+XGBoost, and Random Forest. Each classifier used all 17 features.
+KNN included a standardization step fitted within each training
+fold. The tree classifiers used the original numerical feature
+scales. Table~\ref{tab:classifier-settings} explains how the
+classifiers used the features and lists the parameter searches.
+
+Each classifier received a grid of 20 parameter combinations.
+Selection maximized development F1 at a decision threshold of
+0.5 using shared group-aware folds. Randomized operations used
+seed 42 unless a fold-specific seed was required. Computation
+used CPU execution and one worker per fitting operation.
+Experiments were implemented in Python 3.13.5 using
+scikit-learn 1.9.1, LightGBM 4.6.0, CatBoost 1.2.10,
+and XGBoost 3.4.1. Configurations, package versions, and
+selected parameters were recorded for each run.
+
+\begin{table*}[!tp]
+\centering
+\small
+\caption{Classifier use of the shared features and parameter-search
+spaces. Every classifier evaluated 20 parameter combinations.}
+\label{tab:classifier-settings}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{
+    @{}L{0.13\textwidth}L{0.33\textwidth}Y@{}
+}
+\toprule
+Classifier & How the features influence predictions & Search space \\
+\midrule
+
+KNN
+&
+Distances between standardized feature vectors determine neighboring
+training emails and their votes.
+&
+Neighbors $\{3,5,11,21,31\}$; weights
+$\{\text{uniform},\text{distance}\}$; Minkowski parameter
+$\{1,2\}$.
+\\
+
+LightGBM
+&
+Boosted trees learn feature thresholds and combinations that
+change the generated-email score.
+&
+Trees $\{100,200\}$; leaves $\{7,15,31,63,127\}$;
+learning rate $\{0.05,0.1\}$.
+\\
+
+CatBoost
+&
+Symmetric boosted trees combine feature splits to produce
+the classification score.
+&
+Iterations $\{100,200\}$; depth $\{3,4,5,6,7\}$;
+learning rate $\{0.05,0.1\}$.
+\\
+
+XGBoost
+&
+Boosted trees combine feature thresholds while fitting the
+binary classification objective.
+&
+Trees $\{100,200\}$; depth $\{2,3,4,6,8\}$;
+learning rate $\{0.05,0.1\}$.
+\\
+
+Random Forest
+&
+Trees trained on bootstrap samples use feature splits,
+and their class-probability estimates are averaged.
+&
+Trees $\{100,200\}$; maximum depth
+$\{4,8,12,16,\text{unrestricted}\}$; minimum samples per
+leaf $\{1,4\}$. The feature subset size was fixed to
+\texttt{sqrt}.
+\\
+
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsection{Evaluation Conditions}
+
+\subsubsection{Intra-Model Evaluation}
+
+For each generator, a classifier distinguished human-written
+phishing from phishing produced by that generator. Evaluation
+used development records in nested, group-aware cross-validation.
+Five outer folds measured performance. Within each outer
+training fold, five inner folds selected among the 20 parameter
+settings. The selected pipeline was then refitted on that outer
+training fold and evaluated on its excluded outer fold.
+
+This procedure required 505 fits per classifier and generator,
+including the five outer-training refits. Performance was
+summarized using the mean and sample standard deviation across
+outer folds. The standard deviation describes fold variation.
+The outer training sets overlap, so these five scores were
+not treated as independent samples for significance testing.
+
+\subsubsection{Cross-Model Evaluation}
+
+Separate development models were selected and refitted using
+human emails and one generator. Each fitted model was evaluated
+on held-out human emails and emails from each of the three
+generators. This produced a $3 \times 3$ matrix per classifier,
+with three same-generator and six different-generator cells.
+
+All classifiers used the same target-specific test records.
+A generated-email score of at least 0.5 assigned label 1.
+The same held-out human emails were reused across matrix
+cells to support comparisons under changes in generator.
+
+\subsubsection{Threshold Recalibration}
+
+The fitted cross-model classifiers were retained while their
+decision thresholds were selected using separate calibration
+emails. Each training-generator and target-generator pair used
+the target generator's calibration emails together with the
+human calibration subset.
+
+Candidate thresholds consisted of the distinct calibration
+scores and 0.5. The threshold maximizing calibration F1 was
+selected. Ties favored the threshold closest to 0.5, followed
+by the larger threshold. The chosen threshold was applied to
+the original test scores. Here, recalibration means adjustment
+of the decision cutoff; it does not transform the scores or
+establish probability calibration. We recorded F1 changes,
+recovered generated-email misses, newly missed emails,
+additional human false positives, and cleared human false positives.
+
+\subsubsection{Cross-Dataset Evaluation}
+
+To examine changes in the human-email source, we held out
+each human corpus in turn. Models were trained and tuned using
+development emails from the other four human sources and
+the fixed development pool of all three generators. Source
+exclusion also respected similarity groups.
+
+Each fitted model was evaluated on the reserved test records.
+For each human source, its false-positive rate when excluded
+was compared with the mean rate from the four models that
+included that source. These comparisons were descriptive,
+because excluding different sources changed the size and
+composition of the human training subset.
+
+\subsubsection{Aggregated-Pool Evaluation}
+
+One model per classifier was trained using the full development
+partition, combining human emails with emails from all three
+generators. Parameter selection used five group-aware development
+folds, followed by refitting on the complete development set.
+
+Each model scored the 1,997 test emails once. We reported
+overall pooled metrics and separate generator-specific metrics.
+Each generator-specific calculation combined that generator's
+test emails with the same 1,000 human test emails. Pooled
+training therefore evaluated new records from generators
+represented in training.
+
+\subsection{Performance Measures and Transfer Gap}
+
+Evaluation included accuracy, precision, recall, F1, sensitivity,
+specificity, receiver operating characteristic area, average
+precision, and confusion matrices. The positive class was
+generated phishing. A false positive was a human-written email
+classified as generated. A false negative was a generated email
+classified as human-written.
+
+For classifier $c$, the transfer gap was calculated from its
+held-out cross-model matrix:
+\begin{equation}
+\Delta_c =
+\frac{1}{3}\sum_{g=1}^{3} F_{1,c}^{g,g}
+-
+\frac{1}{6}
+\sum_{\substack{g,h=1\\g\ne h}}^{3} F_{1,c}^{g,h}.
+\label{eq:transfer-gap}
+\end{equation}
+Here, $F_{1,c}^{g,h}$ is the F1 of classifier $c$ trained on
+generator $g$ and tested on generator $h$. Multiplying
+$\Delta_c$ by 100 expresses the gap in percentage points.
+The same definition was used before and after recalibration.
+
+Human-source false-positive rates were examined for all five
+classifiers. Additional theme-level threshold-error summaries
+were available for KNN, LightGBM, and CatBoost. Counts were
+reported with subgroup denominators. Comparisons retained
+email identifiers to account for paired predictions.
+
+\subsection{SHAP Analysis and Comparison with Published XGBoost}
+
+Shapley additive explanations (SHAP) assign feature contributions
+to individual model outputs~\cite{lundberg2017}. We used
+CatBoost's native SHAP implementation to explain its raw
+classification scores. Each email in the intra-model analysis
+was explained by the outer-fold model that excluded it during
+training. Contributions were summarized across all outer-fold
+evaluation records, including human emails and emails from
+the relevant generator.
+
+Global importance was calculated as the mean absolute SHAP
+contribution for each feature. We compared the membership
+and ordering of CatBoost's five highest-ranked features with
+the published XGBoost rankings of Gutierrez
+et al.~\cite{gutierrez2026}. Interpretation accounted for
+differences in models, training procedures, and explanation
+datasets.
+
+A focused diagnostic examined DeepSeek-trained models on
+Llama test emails. CatBoost explanations were compared between
+missed and detected Llama emails. We additionally computed
+LightGBM feature contributions on the same records and examined
+the subsets both models missed, both detected, or classified
+differently. For each explanation, the base score plus feature
+contributions was checked against the model's raw output,
+and the prediction score was checked against the saved result.
+
+Positive contributions increased the score for generated
+authorship, while negative contributions reduced it. These
+analyses describe associations with model predictions and
+provide evidence for investigating errors. Causal explanations
+would require additional controlled experiments.
+
+\subsection{Accountability Ledger}
+
+An accountability ledger connected prediction records with
+experiment-level reports. Prediction records stored the
+experiment identifier, email identifier, similarity group,
+actual label, predicted label, score, and the applicable
+evaluation context. Depending on the evaluation, this context
+included the training generator, test generator, fold, or
+excluded human source. Explanation records linked SHAP
+contributions to the corresponding email and saved model.
+
+Experiment-level JSON reports stored dataset and split
+identifiers, feature order, classifier configuration, selected
+parameters, evaluation metrics, and relevant performance-gap
+or recalibration results. SHA-256 hashes identified input
+files and saved artifacts. Software versions and random seeds
+supported reproducibility.
+
+The ledger provides a record for later verification and further
+research. Future experiments can extend these records while
+retaining the identifiers needed to trace aggregate findings
+back to individual predictions.
+
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Intra-Model Performance}
+
+Table~\ref{tab:intra-results} reports outer-fold F1 means and
+sample standard deviations. LightGBM had the highest mean
+across generators (0.9907). XGBoost led on GPT-4.1, while
+LightGBM led on DeepSeek and Llama. These are descriptive
+fold results, not significance-tested differences.
+
+\begin{table}[!htbp]
+\centering
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.05}
+\footnotesize
+\caption{Intra-model F1 under nested group-aware cross-validation.
+Each generator entry gives the mean and sample standard deviation
+across five outer folds. The final column averages the three
+generator means equally.}
+\label{tab:intra-results}
+\begin{FitTable}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Classifier & GPT-4.1 & \shortstack{DeepSeek\\3.2} & \shortstack{Llama\\3.3 70B}
+& \shortstack{Mean\\F1} \\
+\midrule
+KNN
+& \shortstack{$0.9503$\\$\pm 0.0172$}
+& \shortstack{$0.9550$\\$\pm 0.0119$}
+& \shortstack{$0.9450$\\$\pm 0.0097$}
+& 0.9501 \\
+LightGBM
+& \shortstack{$0.9895$\\$\pm 0.0081$}
+& \shortstack{$0.9910$\\$\pm 0.0057$}
+& \shortstack{$0.9915$\\$\pm 0.0058$}
+& 0.9907 \\
+CatBoost
+& \shortstack{$0.9896$\\$\pm 0.0061$}
+& \shortstack{$0.9901$\\$\pm 0.0072$}
+& \shortstack{$0.9890$\\$\pm 0.0042$}
+& 0.9895 \\
+XGBoost
+& \shortstack{$0.9900$\\$\pm 0.0063$}
+& \shortstack{$0.9886$\\$\pm 0.0062$}
+& \shortstack{$0.9869$\\$\pm 0.0062$}
+& 0.9885 \\
+Random Forest
+& \shortstack{$0.9850$\\$\pm 0.0078$}
+& \shortstack{$0.9869$\\$\pm 0.0075$}
+& \shortstack{$0.9823$\\$\pm 0.0080$}
+& 0.9847 \\
+\bottomrule
+\end{tabular}
+\end{FitTable}
+\end{table}
+
+\subsection{Cross-Model Performance and Degradation}
+
+KNN had the highest mean different-generator F1 at the default
+threshold (0.9120), despite the lowest mean intra-model F1.
+Default transfer gaps ranged from 5.31 to 31.90 percentage
+points (Table~\ref{tab:transfer-results}). DeepSeek-to-Llama
+was the weakest pair for every classifier
+(Fig.~\ref{fig:cross-model-results}). Gaps use the diagonal
+and off-diagonal cells of the held-out matrix; the nested
+cross-validation scores are separate estimates.
+
+\begin{table}[!htbp]
+\centering
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.05}
+\footnotesize
+\caption{Held-out cross-model F1 and transfer gaps.
+Same-generator F1 averages the three diagonal cells.
+Different-generator F1 averages the six off-diagonal cells.
+Gaps are expressed in percentage points (pp).}
+\label{tab:transfer-results}
+\begin{tabularx}{\columnwidth}{@{}L{0.20\columnwidth}CCCCC@{}}
+\toprule
+Classifier & KNN & LightGBM & CatBoost & XGBoost & \shortstack{Random\\Forest} \\
+\midrule
+\shortstack[l]{Default\\same-\\generator\\F1} & 0.9652 & 0.9945 & 0.9945 & 0.9930 & 0.9904 \\
+\shortstack[l]{Default\\different-\\generator\\F1} & 0.9120 & 0.7330 & 0.7556 & 0.7182 & 0.6714 \\
+\shortstack[l]{Recalibrated\\different-\\generator\\F1} & 0.9213 & 0.9153 & 0.9244 & 0.8962 & 0.9027 \\
+\shortstack[l]{Default\\gap (pp)} & 5.31 & 26.15 & 23.89 & 27.48 & 31.90 \\
+\shortstack[l]{Recalibrated\\gap (pp)} & 6.24 & 7.67 & 6.96 & 9.57 & 8.92 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure*}[!tbp]
+\centering
+\PaperFigure
+  {cross_model_f1_before_after_recalibration.png}
+  {0.65\textheight}
+\caption{Cross-model F1 at the default and recalibrated thresholds.
+Rows within each panel identify the training generator and columns
+identify the test generator. All panels use the same color scale.
+Recalibration uses separate calibration records and retains the
+original held-out test scores.}
+\label{fig:cross-model-results}
+\end{figure*}
+
+\subsection{Threshold Recalibration and Error Trade-Offs}
+
+Recalibration increased mean different-generator F1 for every
+classifier; CatBoost reached the highest mean (0.9244).
+KNN's gap nevertheless widened because its same-generator
+mean increased more. Individual cells could also decline:
+KNN's Llama-to-DeepSeek F1 changed from 0.9066 to 0.9014.
+
+For DeepSeek-to-Llama, all selected cutoffs were below 0.5.
+Recovered generated-email misses were accompanied by additional
+human false positives (Table~\ref{tab:threshold-errors} and
+Fig.~\ref{fig:threshold-tradeoff}). Scores were unchanged,
+so AUROC and AP were unchanged.
+
+\begin{table}[!htbp]
+\centering
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.05}
+\footnotesize
+\caption{DeepSeek-to-Llama threshold recalibration on the same
+329 Llama and 1,000 human test emails. FN denotes generated
+emails classified as human-written. FP denotes human emails
+classified as generated. Arrows indicate default to recalibrated
+results. AUROC is the area under the receiver operating
+characteristic curve, and AP is average precision.}
+\label{tab:threshold-errors}
+\begin{tabularx}{\columnwidth}{@{}L{0.20\columnwidth}CCCCC@{}}
+\toprule
+Classifier & KNN & LightGBM & CatBoost & XGBoost & \shortstack{Random\\Forest} \\
+\midrule
+\shortstack[l]{Selected\\threshold} & 0.291586 & \shortstack{$1.305857$\\$\times 10^{-5}$} & 0.004463 & 0.001524 & 0.089987 \\
+F1 & \shortstack{$0.8298$\\$\to 0.8709$} & \shortstack{$0.4977$\\$\to 0.8513$} & \shortstack{$0.5577$\\$\to 0.8464$} & \shortstack{$0.4771$\\$\to 0.8042$} & \shortstack{$0.4313$\\$\to 0.8304$} \\
+FN & \shortstack{$78$\\$\to 39$} & \shortstack{$219$\\$\to 60$} & \shortstack{$201$\\$\to 48$} & \shortstack{$225$\\$\to 60$} & \shortstack{$238$\\$\to 50$} \\
+FP & \shortstack{$25$\\$\to 47$} & \shortstack{$3$\\$\to 34$} & \shortstack{$2$\\$\to 54$} & \shortstack{$3$\\$\to 71$} & \shortstack{$2$\\$\to 64$} \\
+AUROC / AP & \shortstack{0.9264\\ / 0.8471} & \shortstack{0.9733\\ / 0.9292} & \shortstack{0.9740\\ / 0.9317} & \shortstack{0.9566\\ / 0.8939} & \shortstack{0.9705\\ / 0.9165} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure*}[!tbp]
+\centering
+\PaperFigure
+  {deepseek_to_llama_threshold_tradeoff.png}
+  {0.34\textheight}
+\caption{Changes in missed Llama emails and human-email false
+positives after recalibration for DeepSeek-trained classifiers.
+Open circles indicate default-threshold counts and diamonds
+indicate recalibrated counts.}
+\label{fig:threshold-tradeoff}
+\end{figure*}
+
+\subsection{Cross-Dataset Human-Source Evaluation}
+
+Nazario holdout produced the largest false-positive-rate increase
+for every classifier; held-out rates ranged from 20.5\% to
+50.5\% (Table~\ref{tab:nazario-results}). All five classifiers
+produced zero false positives on held-out CEAS-08 emails.
+Figure~\ref{fig:source-results} shows the source-specific
+variation. Excluding different human corpora also changed
+training-set size and composition.
+
+\begin{table}[!htbp]
+\centering
+\small
+\caption{False positives on the 200 Nazario test emails.
+The included-source rate is averaged across the four models
+whose training sets contained Nazario.}
+\label{tab:nazario-results}
+\setlength{\tabcolsep}{4pt}
+\begin{FitTable}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Classifier
+& \shortstack{Included\\FPR (\%)}
+& \shortstack{Held-out\\FPR (\%)}
+& \shortstack{Held-out\\FP count} \\
+\midrule
+KNN           & 14.875 & 50.5 & 101 \\
+LightGBM      &  2.500 & 21.5 &  43 \\
+CatBoost      &  3.250 & 26.5 &  53 \\
+XGBoost       &  2.625 & 22.5 &  45 \\
+Random Forest &  1.625 & 20.5 &  41 \\
+\bottomrule
+\end{tabular}
+\end{FitTable}
+\end{table}
+
+\begin{figure*}[!tbp]
+\centering
+\PaperFigure
+  {human_source_false_positive_rates.png}
+  {0.45\textheight}
+\caption{Human-email false-positive rates when each source
+was included in training or held out. Included-source rates
+average the four applicable models. Each comparison uses
+the same held-out emails from the source being examined.}
+\label{fig:source-results}
+\end{figure*}
+
+\subsection{Aggregated-Pool Performance}
+
+XGBoost had the highest overall pooled F1 (0.9975), with
+five human false positives and no generated-email misses.
+Its advantage over LightGBM amounted to one human-email
+prediction on this test set. Table~\ref{tab:pooled-results}
+reports all metrics and error counts.
+
+\begin{table}[!htbp]
+\centering
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.05}
+\footnotesize
+\caption{Aggregated-pool results on 1,000 human and 997 generated
+test emails. Recall is also the sensitivity of the generated-email
+class. FP and FN are counts. AUROC and AP use the continuous
+prediction scores and are shown to six decimal places.}
+\label{tab:pooled-results}
+\begin{tabularx}{\columnwidth}{@{}L{0.20\columnwidth}CCCCC@{}}
+\toprule
+Classifier & KNN & LightGBM & CatBoost & XGBoost & \shortstack{Random\\Forest} \\
+\midrule
+Accuracy & 0.9805 & 0.9970 & 0.9965 & 0.9975 & 0.9950 \\
+Precision & 0.9624 & 0.9940 & 0.9940 & 0.9950 & 0.9960 \\
+Recall & 1.0000 & 1.0000 & 0.9990 & 1.0000 & 0.9940 \\
+Specificity & 0.9610 & 0.9940 & 0.9940 & 0.9950 & 0.9960 \\
+F1 & 0.9808 & 0.9970 & 0.9965 & 0.9975 & 0.9950 \\
+AUROC & 0.990957 & 0.999948 & 0.999945 & 0.999932 & 0.999763 \\
+AP & 0.982198 & 0.999947 & 0.999944 & 0.999931 & 0.999743 \\
+FP & 39 & 6 & 6 & 5 & 4 \\
+FN & 0 & 0 & 1 & 0 & 6 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Pooled Versus Individual-Generator Training}
+
+Pooling increased Llama F1 relative to the mean of the two
+models trained on other generators, by approximately
+8.8--49.9 percentage points
+(Fig.~\ref{fig:pool-change}). Against matched-generator
+training, however, pooling reduced KNN and LightGBM F1 on
+all three generators (Table~\ref{tab:matched-pool}).
+
+The highest matched-generator F1 was 0.9985 for GPT-4.1
+and 0.9940 for DeepSeek, both with CatBoost, and 0.9955 for
+Llama with LightGBM. Overall pooled metrics use 997 generated
+and 1,000 human emails; generator-specific metrics use
+approximately 330 generated and the same 1,000 human emails.
+
+\begin{table}[!htbp]
+\centering
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.05}
+\footnotesize
+\caption{Default-threshold F1 for matched individual-generator
+training and pooled training. Each pair uses identical target
+test records. Matched models were trained using human emails
+and the indicated generator.}
+\label{tab:matched-pool}
+\begin{FitTable}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+& \multicolumn{2}{c}{GPT-4.1}
+& \multicolumn{2}{c}{\shortstack{DeepSeek\\3.2}}
+& \multicolumn{2}{c}{\shortstack{Llama\\3.3 70B}} \\
+\cmidrule(lr){2-3}
+\cmidrule(lr){4-5}
+\cmidrule(l){6-7}
+Classifier & Matched & Pooled & Matched & Pooled
+& Matched & Pooled \\
+\midrule
+KNN           & 0.9653 & 0.9448 & 0.9639 & 0.9448 & 0.9662 & 0.9440 \\
+LightGBM      & 0.9955 & 0.9911 & 0.9925 & 0.9911 & 0.9955 & 0.9910 \\
+CatBoost      & 0.9985 & 0.9911 & 0.9940 & 0.9896 & 0.9909 & 0.9910 \\
+XGBoost       & 0.9970 & 0.9926 & 0.9910 & 0.9926 & 0.9909 & 0.9925 \\
+Random Forest & 0.9925 & 0.9940 & 0.9880 & 0.9895 & 0.9909 & 0.9894 \\
+\bottomrule
+\end{tabular}
+\end{FitTable}
+\end{table}
+
+\begin{figure*}[!tbp]
+\centering
+\PaperFigure
+  {pooled_training_f1_change.png}
+  {0.33\textheight}
+\caption{Change in generator-specific F1 from pooled training
+relative to the mean of the two models trained on other
+generators. Positive values indicate higher pooled F1.
+The pooled models have access to all three training generators
+and more total training records than an individual-generator
+model.}
+\label{fig:pool-change}
+\end{figure*}
+
+\subsection{SHAP Comparison and Error Investigation}
+
+\subsubsection{Published XGBoost and CatBoost Rankings}
+
+CatBoost and the published XGBoost analysis had identical
+top-five feature membership for each generator
+(Table~\ref{tab:shap-rank-comparison}). Ordering was unchanged
+for GPT-4.1; positions 3 and 4 exchanged for DeepSeek,
+and positions 1 and 2 exchanged for Llama.
+
+\begin{table*}[!tbp]
+\centering
+\small
+\caption{Top-five features in descending order of mean absolute
+SHAP contribution. The XGBoost column reproduces the ranking
+reported in the reference paper. TTR denotes type-token ratio.}
+\label{tab:shap-rank-comparison}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{
+    @{}L{0.12\textwidth}YYL{0.17\textwidth}@{}
+}
+\toprule
+Generator & Published XGBoost & Our CatBoost
+& Observed ordering difference \\
+\midrule
+
+GPT-4.1
+&
+Politeness; mean word length; call-to-action density;
+time-pressure density; TTR.
+&
+Politeness; mean word length; call-to-action density;
+time-pressure density; TTR.
+&
+Same order.
+\\
+
+DeepSeek 3.2
+&
+Mean word length; time-pressure density; politeness;
+call-to-action density; TTR.
+&
+Mean word length; time-pressure density; call-to-action
+density; politeness; TTR.
+&
+Positions 3 and 4 exchanged.
+\\
+
+Llama 3.3 70B
+&
+Politeness; TTR; verb ratio; mean sentence length;
+first-person pronoun ratio.
+&
+TTR; politeness; verb ratio; mean sentence length;
+first-person pronoun ratio.
+&
+Positions 1 and 2 exchanged.
+\\
+
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsubsection{Feature Contributions on Missed Llama Emails}
+
+DeepSeek-trained CatBoost assigned time-pressure density a
+mean signed SHAP contribution of $-0.593$ on 201 missed
+Llama emails and $+0.452$ on 128 detected emails
+(Fig.~\ref{fig:shap-errors}). Two-thirds of the misses had
+negative time-pressure contributions. Politeness still had
+a positive mean contribution among misses, illustrating
+the combined influence of multiple features.
+
+LightGBM and CatBoost both missed 187 Llama emails, both
+detected 96, and disagreed on 46. For both models, mean
+time-pressure contributions were negative on shared misses
+and positive on shared detections. These are exploratory
+associations with model scores.
+
+\begin{figure*}[!tbp]
+\centering
+\PaperFigure
+  {catboost_shap_llama_missed_vs_detected.png}
+  {0.34\textheight}
+\caption{Mean signed SHAP contributions for DeepSeek-trained
+CatBoost on Llama test emails. The figure shows the three
+features with the most negative mean contribution among
+the 201 missed emails and compares them with the 128
+detected emails. Negative contributions move the score
+toward human-written authorship; positive contributions
+move it toward generated authorship.}
+\label{fig:shap-errors}
+\end{figure*}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Interpretation of the Findings}
+
+Classifier choice affected transfer more than the intra-model
+ranking suggested. LightGBM led the nested evaluation,
+whereas KNN transferred best at the default threshold and
+CatBoost had the highest recalibrated transfer mean.
+Selection based only on familiar-generator performance
+would therefore overlook an important weakness.
+
+Threshold adjustment recovered many misses but increased human
+false positives. For DeepSeek-to-Llama, LightGBM had AUROC
+0.9733 while its default F1 was 0.4977; adjusting the cutoff
+raised F1 to 0.8513. This supports examining ranking quality
+and decision errors separately. It does not establish that
+the scores are calibrated probabilities.
+
+Pooling performed strongly when all three generators were
+represented in training, but did not consistently improve
+matched-generator F1. The Nazario results also show that
+generator diversity does not remove sensitivity to the human
+corpus. Both authorship classes require source-aware evaluation.
+
+\subsection{Comparison with Previous Work}
+
+Table~\ref{tab:prior-work-comparison} separates the classification
+tasks and metrics. Accuracy on phishing-versus-legitimate email
+is not directly comparable with authorship F1. For the closest
+numerical comparison, the table uses our XGBoost results;
+the five-classifier comparisons appear in
+Tables~\ref{tab:intra-results}--\ref{tab:matched-pool}.
+
+\begin{table*}[!tp]
+\centering
+\small
+\caption{Quantitative comparison with relevant prior work on
+phishing detection and generated-phishing authorship.
+Published scores retain their original metrics. All pooled
+F1 values in the two authorship rows are generator-specific,
+not overall pooled scores. Different tasks and protocols
+prevent a common performance ranking.}
+\label{tab:prior-work-comparison}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\textwidth}{
+  @{}L{0.13\textwidth}L{0.21\textwidth}L{0.16\textwidth}
+  YL{0.16\textwidth}@{}
+}
+\toprule
+Study & Task and data & Approach
+& Reported performance & Generator-transfer assessment \\
+\midrule
+Opara et al.~\cite{opara2025}
+& Phishing versus legitimate; 63 emails per class generated
+with GPT-4o.
+& 60 stylometric and linguistic features; XGBoost.
+& Accuracy: 96\%; AUROC: 0.99.
+& Single-generator classification; no cross-generator
+authorship score reported. \\
+\midrule
+Koide et al.~\cite{koide2026}
+& Phishing versus legitimate; 1,010 phishing and 1,000
+legitimate emails from public sources.
+& ChatSpamDetector with GPT-4 as the detector.
+& Accuracy: 99.70\%.
+& GPT-4 is a detector, not the generator of an
+authorship benchmark. \\
+\midrule
+Gutierrez et al.~\cite{gutierrez2026}
+& Human versus generated phishing; 9,986 records;
+GPT-4.1, DeepSeek 3.2, and Llama 3.3 70B.
+& 17 features; Logistic Regression and XGBoost;
+scores shown for XGBoost.
+& Intra-CV F1: 0.9516--0.9650.
+Pooled F1: 0.997 for each generator.
+& Nine generator pairs; default to recalibrated
+gap: 28.0 to 4.0 pp. \\
+\midrule
+Present study
+& Same released corpus; shared development, calibration,
+and test partitions with similarity groups kept together.
+& 17 features; five classifiers;
+XGBoost scores shown for the closest-family comparison.
+& XGBoost intra-CV F1: 0.9869--0.9900.
+Pooled F1: 0.9926 (GPT), 0.9926 (DeepSeek),
+0.9925 (Llama).
+& Nine pairs per classifier; XGBoost gap:
+27.48 to 9.57 pp. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+Our XGBoost gap was numerically close to the published default
+gap, but remained larger after recalibration.
+The partitioning, group handling, parameter search,
+calibration allocation, and evaluation records differed.
+These results extend the benchmark under a different protocol
+and do not establish superiority over the published study.
+
+\subsection{Feature Interpretation and Accountability}
+
+The shared top-five features support agreement with the
+published importance pattern. Time pressure was already
+important in that study; our additional finding concerns
+its signed contribution on missed versus detected Llama
+emails. This distinction adds an error-focused diagnostic,
+not evidence that time pressure causes transfer failure.
+
+The ledger connects these observations to saved scores,
+thresholds, identifiers, and hashes. It supports later
+verification and investigation. Practical use would also
+require an evaluation containing legitimate emails and
+explicit costs for each error type.
+
+\subsection{Limitations}
+
+The study reused one released corpus, three generators,
+five generated-email themes, and inherited source labels.
+It used English lexicons and an English spaCy model;
+language labels were not independently audited, and no
+multilingual evaluation was conducted. Conclusions therefore
+concern this English-oriented benchmark.
+
+Feature reproduction establishes agreement with the released
+implementation, rather than complete linguistic validity.
+Formatting was retained: the diagnostic audit found spaCy
+whitespace tokens in all 4,986 generated emails and none
+of the 5,000 human emails. Such source-associated formatting
+may affect parsed features; its contribution to performance
+was not isolated.
+
+Grouping detects similarity under a binary word-trigram
+representation and the selected 0.88 cutoff. It cannot
+guarantee that all paraphrases or related templates are
+separated. Evaluation used one partition seed and 20 settings
+per classifier. Shared test emails and overlapping fold
+training sets create dependence; no inferential significance
+tests or group-bootstrap confidence intervals were computed.
+
+Recalibration requires labeled target data and optimizes F1
+without an explicit false-positive cost constraint.
+Pooling changes both generator diversity and training size,
+and tests generators represented in training. Source holdout
+also changes human training size and composition.
+
+The SHAP investigation was exploratory and focused on CatBoost
+with one paired LightGBM diagnostic. Across-study rankings
+use different fitted models and explanation records, and
+SHAP contributions do not demonstrate causal effects.
+The experiments did not evaluate legitimate-email detection,
+new generator families, future time periods, or operational
+header, reputation, and attachment signals.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This study reused 9,986 phishing emails and reproduced their
+17 released stylometric features to compare KNN, LightGBM,
+CatBoost, XGBoost, and Random Forest. Python pipelines applied
+shared partitions, group-aware validation, training-only KNN
+scaling, and separate calibration data. Five evaluations
+examined familiar generators, generator changes, threshold
+adjustment, human-source holdout, and pooled training.
+
+The strongest classifier varied by evaluation condition.
+Recalibration improved mean transfer F1 for all five classifiers,
+with a trade-off in human false positives, while pooling
+achieved high performance on the represented generators.
+CatBoost SHAP agreed with published XGBoost top-five membership
+and added an exploratory diagnostic of missed Llama emails.
+The accountability ledger preserves the evidence needed to
+trace these findings and extend the experiments.
+
+\subsection{Future Work}
+
+Future studies should reserve fresh test data for independent
+corpora, additional generators, alternative prompts, and
+multilingual evaluations. Controlled formatting ablations
+and equal-size training comparisons could separate preparation
+effects from generator diversity. Repeated partitions and
+group-aware uncertainty estimates would strengthen comparisons.
+Further work should examine calibration sample size and
+false-positive constraints, compare XGBoost and CatBoost SHAP
+on identical explanation records, and evaluate legitimate emails
+within a broader security pipeline. The ledger can retain
+these future experiments without introducing automatic retraining.
+
+% Finish pending result floats without forcing an extra bibliography page.
+\FloatBarrier
+% Let unused column space remain at the bottom, rather than stretching
+% the gaps below the References heading or between bibliography entries.
+\raggedbottom
+
+\begingroup
+\setlength{\emergencystretch}{2em}
+
+\begin{thebibliography}{99}
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+
+\bibitem{salloum2022}
+S. A. Salloum, T. Gaber, S. Vadera, and K. Shaalan,
+``A systematic literature review on phishing email detection using
+natural language processing techniques,''
+\emph{IEEE Access}, vol. 10, pp. 65703--65727, 2022.
+doi: \url{https://doi.org/10.1109/ACCESS.2022.3183083}.
+
+\bibitem{heiding2024}
+F. Heiding, B. Schneier, A. Vishwanath, J. Bernstein,
+and P. S. Park,
+``Devising and detecting phishing emails using large language models,''
+\emph{IEEE Access}, vol. 12, pp. 42131--42146, 2024.
+doi: \url{https://doi.org/10.1109/ACCESS.2024.3375882}.
+
+\bibitem{opara2025}
+C. Opara, P. Modesti, and L. Golightly,
+``Evaluating spam filters and stylometric detection of AI-generated
+phishing emails,''
+\emph{Expert Systems with Applications}, vol. 276,
+Art. no. 127044, 2025.
+doi: \url{https://doi.org/10.1016/j.eswa.2025.127044}.
+
+\bibitem{koide2026}
+T. Koide, N. Fukushi, H. Nakano, and D. Chiba,
+``ChatSpamDetector: Leveraging large language models for effective
+phishing email detection,''
+in \emph{Security and Privacy in Communication Networks},
+Lecture Notes of the Institute for Computer Sciences, Social Informatics
+and Telecommunications Engineering, vol. 629.
+Cham, Switzerland: Springer, 2026, pp. 297--319.
+doi: \url{https://doi.org/10.1007/978-3-031-94455-0_14}.
+
+\bibitem{li2024mage}
+Y. Li, Q. Li, L. Cui, W. Bi, Z. Wang, L. Wang, L. Yang,
+S. Shi, and Y. Zhang,
+``MAGE: Machine-generated text detection in the wild,''
+in \emph{Proc. 62nd Annual Meeting of the Association for
+Computational Linguistics}, vol. 1, 2024, pp. 36--53.
+doi: \url{https://doi.org/10.18653/v1/2024.acl-long.3}.
+
+\bibitem{borile2025}
+C. Borile and C. Abrate,
+``How to generalize the detection of AI-generated text:
+Confounding neurons,''
+in \emph{Findings of the Association for Computational Linguistics:
+EMNLP 2025}, 2025, pp. 25461--25476.
+doi: \url{https://doi.org/10.18653/v1/2025.findings-emnlp.1388}.
+
+\bibitem{gutierrez2026}
+R. Gutierrez, W. Villegas-Ch, and J. Govea,
+``Cross-model evaluation of phishing detectors against
+LLM-generated emails,''
+\emph{Frontiers in Big Data}, vol. 9,
+Art. no. 1883452, 2026.
+doi: \url{https://doi.org/10.3389/fdata.2026.1883452}.
+
+\bibitem{chataut2024}
+R. Chataut, P. K. Gyawali, and Y. Usman,
+``Can AI keep you safe? A study of large language models for
+phishing detection,''
+in \emph{Proc. IEEE 14th Annual Computing and Communication
+Workshop and Conference (CCWC)}, 2024, pp. 548--554.
+doi: \url{https://doi.org/10.1109/CCWC60891.2024.10427626}.
+
+\bibitem{opara2024styloai}
+C. Opara,
+``StyloAI: Distinguishing AI-generated content with stylometric analysis,''
+in \emph{Artificial Intelligence in Education. Posters and Late Breaking
+Results, Workshops and Tutorials, Industry and Innovation Tracks,
+Practitioners, Doctoral Consortium and Blue Sky},
+Communications in Computer and Information Science, vol. 2151.
+Cham, Switzerland: Springer, 2024, pp. 105--114.
+doi: \url{https://doi.org/10.1007/978-3-031-64312-5_13}.
+
+\bibitem{gutierrezdataset2026}
+R. Gutierrez, W. Villegas-Ch, and J. Govea,
+``Cross-model evaluation of phishing detectors against
+LLM-generated emails: dataset, code and results,''
+Zenodo, ver. 1, May 2026.
+doi: \url{https://doi.org/10.5281/zenodo.20250116}.
+
+\bibitem{lundberg2017}
+S. M. Lundberg and S.-I. Lee,
+``A unified approach to interpreting model predictions,''
+in \emph{Advances in Neural Information Processing Systems},
+vol. 30, 2017.
+
+% The following entries were retained from the supplied draft.
+% They currently have no \cite in the manuscript body.
+% Before submission, retain only sources actually supporting the manuscript.
+\bibitem{apwg2025}
+Anti-Phishing Working Group,
+``Phishing activity trends report, 4th quarter 2025,''
+APWG, Technical Report, 2025.
+
+\bibitem{asiri2023}
+S. Asiri, Y. Xiao, S. Alzahrani, S. Li, and T. Li,
+``A survey of intelligent detection designs of HTML URL
+phishing attacks,''
+\emph{IEEE Access}, vol. 11, pp. 6421--6443, 2023.
+doi: \url{https://doi.org/10.1109/ACCESS.2023.3237798}.
+
+\bibitem{bountakas2021}
+P. Bountakas, K. Koutroumpouchos, and C. Xenakis,
+``A comparison of natural language processing and machine learning
+methods for phishing email detection,''
+in \emph{Proc. 16th International Conference on Availability,
+Reliability and Security (ARES)}, 2021.
+doi: \url{https://doi.org/10.1145/3465481.3469205}.
+
+\bibitem{ceas2008}
+CEAS,
+``CEAS 2008 live spam challenge corpus,''
+2008. [Online]. Available:
+\url{https://www.kaggle.com/datasets/naserabdullahalam/phishing-email-dataset}
+
+\bibitem{cormack2007}
+G. V. Cormack,
+``TREC 2007 spam track overview,''
+in \emph{Proc. 16th Text Retrieval Conference (TREC)},
+National Institute of Standards and Technology, 2007.
+doi: \url{https://doi.org/10.6028/NIST.SP.500-274.spam-overview}.
+
+\bibitem{gore2023}
+S. Gore, S. Hamsa, S. Roychowdhury, G. Patil, S. Gore,
+and S. Karmode,
+``Augmented intelligence in machine learning for cybersecurity:
+Enhancing threat detection and human-machine collaboration,''
+in \emph{Proc. 2nd International Conference on Augmented
+Intelligence and Sustainable Systems (ICAISS)}, 2023,
+pp. 638--644.
+doi: \url{https://doi.org/10.1109/ICAISS58487.2023.10250514}.
+
+\bibitem{heiding2026}
+F. Heiding, S. Lermen, A. Kao, C. Mayrink Verdun,
+B. Schneier, and A. Vishwanath,
+``Evaluating large language models' ability to automate
+spear phishing,''
+\emph{Expert Systems with Applications}, vol. 314,
+Art. no. 131546, 2026.
+doi: \url{https://doi.org/10.1016/j.eswa.2026.131546}.
+
+\bibitem{klimt2004}
+B. Klimt and Y. Yang,
+``The Enron corpus: A new dataset for email classification research,''
+in \emph{Machine Learning: ECML 2004}.
+Berlin, Germany: Springer, 2004, pp. 217--226.
+doi: \url{https://doi.org/10.1007/978-3-540-30115-8_22}.
+
+\bibitem{nazario2007}
+J. Nazario,
+``The Nazario phishing corpus,''
+2007. [Online]. Available:
+\url{https://monkey.org/~jose/phishing/}
+
+\bibitem{radev2008}
+D. R. Radev,
+``CLAIR collection of fraud email,''
+2008. [Online]. Available:
+\url{https://aclweb.org/aclwiki/CLAIR_collection_of_fraud_email_(Repository)}
+
+\bibitem{roy2024}
+S. S. Roy, P. Thota, K. V. Naragam, and S. Nilizadeh,
+``From chatbots to phishbots? Phishing scam generation in
+commercial large language models,''
+in \emph{Proc. IEEE Symposium on Security and Privacy (SP)},
+2024, pp. 36--54.
+doi: \url{https://doi.org/10.1109/SP54263.2024.00182}.
+
+\bibitem{sakkis2003}
+G. Sakkis, I. Androutsopoulos, G. Paliouras, V. Karkaletsis,
+C. D. Spyropoulos, and P. Stamatopoulos,
+``A memory-based approach to anti-spam filtering for mailing lists,''
+\emph{Information Retrieval}, vol. 6, pp. 49--73, 2003.
+doi: \url{https://doi.org/10.1023/A:1022948414856}.
+
+\bibitem{verizon2025}
+Verizon,
+``2025 data breach investigations report,''
+Technical Report, 2025. [Online]. Available:
+\url{https://www.verizon.com/business/resources/Tc25/reports/2025-dbir-data-breach-investigations-report.pdf}
+
+\bibitem{xu2025}
+H. Xu, S. Wang, N. Li, K. Wang, Y. Zhao, K. Chen,
+\emph{et al.},
+``Large language models for cyber security:
+A systematic literature review,''
+\emph{ACM Transactions on Software Engineering and Methodology},
+2025.
+doi: \url{https://doi.org/10.1145/3769676}.
+
+\bibitem{zhang2025}
+J. Zhang, H. Bu, H. Wen, Y. Liu, H. Fei, R. Xi,
+\emph{et al.},
+``When LLMs meet cybersecurity: A systematic literature review,''
+\emph{Cybersecurity}, vol. 8, Art. no. 55, 2025.
+doi: \url{https://doi.org/10.1186/s42400-025-00361-w}.
+
+\end{thebibliography}
+\endgroup
+
+\end{document}

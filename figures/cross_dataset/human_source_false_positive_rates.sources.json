@@ -1,0 +1,117 @@
+{
+  "purpose": "Reconstructed, reproducible plotting of existing experiment results",
+  "plotting_script": "src/plots/plot_cross_dataset_fpr.py",
+  "versions": {
+    "python": "3.13.5",
+    "matplotlib": "3.11.2",
+    "numpy": "2.5.4"
+  },
+  "dpi": 450,
+  "figure_size_inches": [
+    9.1,
+    6.4
+  ],
+  "experiments": {
+    "cross_dataset|knn|all": {
+      "experiment_id": "knn_cross_dataset_20261103T182608_46ea6d4b",
+      "ledger": "ledger/cross_dataset/knn/knn_cross_dataset_20261103T182608_46ea6d4b.json"
+    },
+    "cross_dataset|lightgbm|all": {
+      "experiment_id": "lightgbm_cross_dataset_20261103T183003_94c06a3d",
+      "ledger": "ledger/cross_dataset/lightgbm/lightgbm_cross_dataset_20261103T183003_94c06a3d.json"
+    },
+    "cross_dataset|catboost|all": {
+      "experiment_id": "catboost_cross_dataset_20261103T183336_8ec5b9ed",
+      "ledger": "ledger/cross_dataset/catboost/catboost_cross_dataset_20261103T183336_8ec5b9ed.json"
+    },
+    "cross_dataset|xgboost|all": {
+      "experiment_id": "xgboost_cross_dataset_20261105T023700_a515eb89",
+      "ledger": "ledger/cross_dataset/xgboost/xgboost_cross_dataset_20261105T023700_a515eb89.json"
+    },
+    "cross_dataset|random_forest|all": {
+      "experiment_id": "random_forest_cross_dataset_20261105T023823_f0733d85",
+      "ledger": "ledger/cross_dataset/random_forest/random_forest_cross_dataset_20261105T023823_f0733d85.json"
+    }
+  },
+  "source_files": [
+    {
+      "path": "ledger/cross_dataset/catboost/catboost_cross_dataset_20261103T183336_8ec5b9ed.json",
+      "sha256": "349a6fa57c2628026dca07ce528d8b591fcfb5dfc775d2c97c64de4bd544dcf0"
+    },
+    {
+      "path": "ledger/cross_dataset/knn/knn_cross_dataset_20261103T182608_46ea6d4b.json",
+      "sha256": "d7eb74ec0b6ca8b68cc0a35aa199d1b96d98666624429f081df79cd04f7d60d5"
+    },
+    {
+      "path": "ledger/cross_dataset/lightgbm/lightgbm_cross_dataset_20261103T183003_94c06a3d.json",
+      "sha256": "5cc56447aec6d4fd6b997784e518411f29d94d80ecd517a88ef059eb7c442ba2"
+    },
+    {
+      "path": "ledger/cross_dataset/random_forest/random_forest_cross_dataset_20261105T023823_f0733d85.json",
+      "sha256": "2e8aa33b683adad9e89e8f5f67d3dc757f34d2fa9c062692cc3efb3ec61d8334"
+    },
+    {
+      "path": "ledger/cross_dataset/xgboost/xgboost_cross_dataset_20261105T023700_a515eb89.json",
+      "sha256": "4d62958361e48f1a72ff13825a84a3b63fe7ff0c1073d4698b7f2c1ab06d17bb"
+    },
+    {
+      "path": "results/cross_dataset/catboost/catboost_cross_dataset_20261103T183336_8ec5b9ed/cross_dataset_metrics.csv",
+      "sha256": "e48ed7723133f91e395ed36b6793c6904136d67dbda22f7439945dff1bcbd293"
+    },
+    {
+      "path": "results/cross_dataset/catboost/catboost_cross_dataset_20261103T183336_8ec5b9ed/cross_dataset_source_comparison.csv",
+      "sha256": "8eeceea3e5eecd4e1e2a9eb574203400c098e1abf013eb4c41a0cdbf1ec6cbdc"
+    },
+    {
+      "path": "results/cross_dataset/knn/knn_cross_dataset_20261103T182608_46ea6d4b/cross_dataset_metrics.csv",
+      "sha256": "8a010b165c962ffe8361b1a3822d3232d7490b92d67eccdd804b8f640325f5c1"
+    },
+    {
+      "path": "results/cross_dataset/knn/knn_cross_dataset_20261103T182608_46ea6d4b/cross_dataset_source_comparison.csv",
+      "sha256": "d927d9042613beaeafa792e9e974fc41f27625bd93971b095dc0726d0ed393aa"
+    },
+    {
+      "path": "results/cross_dataset/lightgbm/lightgbm_cross_dataset_20261103T183003_94c06a3d/cross_dataset_metrics.csv",
+      "sha256": "471ae531c73b7f662f0e42a2bb3504d743f3af0f6a7879ff853fb3f75780632d"
+    },
+    {
+      "path": "results/cross_dataset/lightgbm/lightgbm_cross_dataset_20261103T183003_94c06a3d/cross_dataset_source_comparison.csv",
+      "sha256": "8f14e5440a55afcdfadd18b4e557df7092f607707039890a7d23c7b5ca960f04"
+    },
+    {
+      "path": "results/cross_dataset/random_forest/random_forest_cross_dataset_20261105T023823_f0733d85/cross_dataset_metrics.csv",
+      "sha256": "70ad150e34fdebd7533632b43453a37452877b0d53f99bec3ad5612159678c73"
+    },
+    {
+      "path": "results/cross_dataset/random_forest/random_forest_cross_dataset_20261105T023823_f0733d85/cross_dataset_source_comparison.csv",
+      "sha256": "1ed3ca527d7e95316adde37b84ae386a14d1a84fb99faa7cdd918806e43f93a6"
+    },
+    {
+      "path": "results/cross_dataset/xgboost/xgboost_cross_dataset_20261105T023700_a515eb89/cross_dataset_metrics.csv",
+      "sha256": "114a56bd2824f8e30e744b4a8bee2d15ca7a7e34e924dbd5f27d14afa775fa02"
+    },
+    {
+      "path": "results/cross_dataset/xgboost/xgboost_cross_dataset_20261105T023700_a515eb89/cross_dataset_source_comparison.csv",
+      "sha256": "e93744f6cf88dcd01e490b76305c38b980c8d2f5fafc073a53754a88f9f1f1f5"
+    },
+    {
+      "path": "src/plots/figure_sources.json",
+      "sha256": "ffbd00030d1e5d1676ffdcc2c7b59e8c434b49ee5022caabe926d63286f2ecb0"
+    },
+    {
+      "path": "src/plots/plot_cross_dataset_fpr.py",
+      "sha256": "932fd57869f14fbd53d2de0b603fc8e387ed9a2b81dba9114bb2b2b49240dc8b"
+    },
+    {
+      "path": "src/plots/plot_utils.py",
+      "sha256": "8db638820e4958ef93f0613f58c1227be2f3bb9ff771eb58481fc8e7b3c55ae5"
+    }
+  ],
+  "outputs": {
+    "figures/cross_dataset/human_source_false_positive_rates.png": "408a0f1bf69a3989c76294aec04dd0bb2a055ce886a7ae601ab4c92103a6817c",
+    "figures/cross_dataset/human_source_false_positive_rates.svg": "2492f4de31150236d1ba247384d4a16537ab69690d550c9b7445e102ab9b7253",
+    "figures/cross_dataset/human_source_false_positive_rates.data.csv": "b4417c75a2191e56310c3cb844fe1fbb42083a2f69ef1d1f46b487977e6e2b7a"
+  },
+  "calculation": "For each source, compare the held-out model FPR against the equal-weight mean FPR of the four models including that source. All rates use the same held-out emails from that source; training size and source mixture differ.",
+  "model_fits": 0
+}

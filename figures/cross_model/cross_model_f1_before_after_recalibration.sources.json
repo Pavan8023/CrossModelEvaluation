@@ -1,0 +1,157 @@
+{
+  "purpose": "Reconstructed, reproducible plotting of existing experiment results",
+  "plotting_script": "src/plots/plot_cross_model_f1.py",
+  "versions": {
+    "python": "3.13.5",
+    "matplotlib": "3.11.2",
+    "numpy": "2.5.4"
+  },
+  "dpi": 450,
+  "figure_size_inches": [
+    9.1,
+    8.2
+  ],
+  "experiments": {
+    "cross_model|knn|all": {
+      "experiment_id": "knn_cross_model_20261103T021221_45fd3a12",
+      "ledger": "ledger/cross_model/knn/knn_cross_model_20261103T021221_45fd3a12.json"
+    },
+    "recalibration|knn|all": {
+      "experiment_id": "knn_recalibration_20261103T175245_dee4ad32",
+      "ledger": "ledger/recalibration/knn/knn_recalibration_20261103T175245_dee4ad32.json"
+    },
+    "cross_model|lightgbm|all": {
+      "experiment_id": "lightgbm_cross_model_20261103T022903_7b14492e",
+      "ledger": "ledger/cross_model/lightgbm/lightgbm_cross_model_20261103T022903_7b14492e.json"
+    },
+    "recalibration|lightgbm|all": {
+      "experiment_id": "lightgbm_recalibration_20261103T175729_0b35dc90",
+      "ledger": "ledger/recalibration/lightgbm/lightgbm_recalibration_20261103T175729_0b35dc90.json"
+    },
+    "cross_model|catboost|all": {
+      "experiment_id": "catboost_cross_model_20261103T023109_e651ca95",
+      "ledger": "ledger/cross_model/catboost/catboost_cross_model_20261103T023109_e651ca95.json"
+    },
+    "recalibration|catboost|all": {
+      "experiment_id": "catboost_recalibration_20261103T180025_a08d1655",
+      "ledger": "ledger/recalibration/catboost/catboost_recalibration_20261103T180025_a08d1655.json"
+    },
+    "cross_model|xgboost|all": {
+      "experiment_id": "xgboost_cross_model_20261105T020322_03ccc83c",
+      "ledger": "ledger/cross_model/xgboost/xgboost_cross_model_20261105T020322_03ccc83c.json"
+    },
+    "recalibration|xgboost|all": {
+      "experiment_id": "xgboost_recalibration_20261105T020742_05934889",
+      "ledger": "ledger/recalibration/xgboost/xgboost_recalibration_20261105T020742_05934889.json"
+    },
+    "cross_model|random_forest|all": {
+      "experiment_id": "random_forest_cross_model_20261105T020330_20f5c30a",
+      "ledger": "ledger/cross_model/random_forest/random_forest_cross_model_20261105T020330_20f5c30a.json"
+    },
+    "recalibration|random_forest|all": {
+      "experiment_id": "random_forest_recalibration_20261105T020747_87787f60",
+      "ledger": "ledger/recalibration/random_forest/random_forest_recalibration_20261105T020747_87787f60.json"
+    }
+  },
+  "source_files": [
+    {
+      "path": "ledger/cross_model/catboost/catboost_cross_model_20261103T023109_e651ca95.json",
+      "sha256": "24f9adf8c1e0a6f6525919f981a4d9b0a8809cd260f155038caf4297ecb90dc4"
+    },
+    {
+      "path": "ledger/cross_model/knn/knn_cross_model_20261103T021221_45fd3a12.json",
+      "sha256": "0e727ff1e4ca1d2f99a61626cdbd44e005420362287d0cb74baed28a6131e8d6"
+    },
+    {
+      "path": "ledger/cross_model/lightgbm/lightgbm_cross_model_20261103T022903_7b14492e.json",
+      "sha256": "505d0ae90bd0e762bb7d3078e414159246f9f5133cff613bbe1d1a7ea422984e"
+    },
+    {
+      "path": "ledger/cross_model/random_forest/random_forest_cross_model_20261105T020330_20f5c30a.json",
+      "sha256": "c648380026b3193d4b4d9dbccef7eb3009bb8baa9f86341b3ab544791fdf904a"
+    },
+    {
+      "path": "ledger/cross_model/xgboost/xgboost_cross_model_20261105T020322_03ccc83c.json",
+      "sha256": "e252f14804ceaddc22ae20499585ee1b15ca735d8e9f2e37c4e6bb36aed74085"
+    },
+    {
+      "path": "ledger/recalibration/catboost/catboost_recalibration_20261103T180025_a08d1655.json",
+      "sha256": "e4b8d661136ae388d1f4c6555f3b450aa4cb5731258b5089191bf2e525cdc199"
+    },
+    {
+      "path": "ledger/recalibration/knn/knn_recalibration_20261103T175245_dee4ad32.json",
+      "sha256": "582eddfdd90f5cddf68c1df19fcc521a4a30e222f3bd6063af136b00e051b5f9"
+    },
+    {
+      "path": "ledger/recalibration/lightgbm/lightgbm_recalibration_20261103T175729_0b35dc90.json",
+      "sha256": "d7a81aa384f238da5c1dff5f861e626e7faafb3f8471e4de7d0f1d670f436cad"
+    },
+    {
+      "path": "ledger/recalibration/random_forest/random_forest_recalibration_20261105T020747_87787f60.json",
+      "sha256": "1351801ff60ebce28e6cca8a5d21ed803517f23d6df3d4b734415ff48c4d160c"
+    },
+    {
+      "path": "ledger/recalibration/xgboost/xgboost_recalibration_20261105T020742_05934889.json",
+      "sha256": "8e80d40e9f3787c3a888e76f4ee236a03d5539bd24502f9704cc1c3514c910f0"
+    },
+    {
+      "path": "results/cross_model/catboost/catboost_cross_model_20261103T023109_e651ca95/cross_model_metrics.csv",
+      "sha256": "71e056baf3d843b37f83761667f89e741196e06fc75870bd18dbcb99580c5a6a"
+    },
+    {
+      "path": "results/cross_model/knn/knn_cross_model_20261103T021221_45fd3a12/cross_model_metrics.csv",
+      "sha256": "29727e634eaaba42c353e3a11e65be5e6e2a25032aae525d53cadb7537778cde"
+    },
+    {
+      "path": "results/cross_model/lightgbm/lightgbm_cross_model_20261103T022903_7b14492e/cross_model_metrics.csv",
+      "sha256": "40af150ed364896554d76b9a261795020a8182ceace48b60e98bd12fdd40925a"
+    },
+    {
+      "path": "results/cross_model/random_forest/random_forest_cross_model_20261105T020330_20f5c30a/cross_model_metrics.csv",
+      "sha256": "d227d12f9586e09f8afa0e7d8e253a342779cbb48619a139ef5546cfc9d2d721"
+    },
+    {
+      "path": "results/cross_model/xgboost/xgboost_cross_model_20261105T020322_03ccc83c/cross_model_metrics.csv",
+      "sha256": "1460add25dc73f12f5bdba528c73fc51ab8a20f40b004eb1052724e8664db217"
+    },
+    {
+      "path": "results/recalibration/catboost/catboost_recalibration_20261103T180025_a08d1655/recalibration_metrics.csv",
+      "sha256": "87cd2ed8d09605961659ff9df2e256042ca372422022a9a1f0fda93aa8bfd3a9"
+    },
+    {
+      "path": "results/recalibration/knn/knn_recalibration_20261103T175245_dee4ad32/recalibration_metrics.csv",
+      "sha256": "344d33748b2bc7f95221269606a6173a1853209e6502c48ccbac20627e83ecc9"
+    },
+    {
+      "path": "results/recalibration/lightgbm/lightgbm_recalibration_20261103T175729_0b35dc90/recalibration_metrics.csv",
+      "sha256": "df3737c4ed4c5cbf7e62b566d223b5bbb02e7e349d9ad384eb52c242e03b97fd"
+    },
+    {
+      "path": "results/recalibration/random_forest/random_forest_recalibration_20261105T020747_87787f60/recalibration_metrics.csv",
+      "sha256": "0bde8be3ae0a5667940127460e720a10c3e8222e6360dbf770af5785335ac19d"
+    },
+    {
+      "path": "results/recalibration/xgboost/xgboost_recalibration_20261105T020742_05934889/recalibration_metrics.csv",
+      "sha256": "f0897940965d06608b699a3e850ee48da5db7d6aafac546cf6ba747a162b6346"
+    },
+    {
+      "path": "src/plots/figure_sources.json",
+      "sha256": "ffbd00030d1e5d1676ffdcc2c7b59e8c434b49ee5022caabe926d63286f2ecb0"
+    },
+    {
+      "path": "src/plots/plot_cross_model_f1.py",
+      "sha256": "1a4f0e37c7c2d34b4934d0f4f92ed56336bb5e45ff911a9c8856368cbf7aecff"
+    },
+    {
+      "path": "src/plots/plot_utils.py",
+      "sha256": "8db638820e4958ef93f0613f58c1227be2f3bb9ff771eb58481fc8e7b3c55ae5"
+    }
+  ],
+  "outputs": {
+    "figures/cross_model/cross_model_f1_before_after_recalibration.png": "6cc471a0834ae1d8fb77946637c4918a95123b0447456b92dea2f5157a58eff8",
+    "figures/cross_model/cross_model_f1_before_after_recalibration.svg": "4d2a2d3737e53ad7ae087df6b300555e3bf75aac35916f2bfead3716ee055dbe",
+    "figures/cross_model/cross_model_f1_before_after_recalibration.data.csv": "b7ff896844fc9a6aa65277b318cdf9a47420997da1f4a324820abe8df85ec571"
+  },
+  "calculation": "Per-cell held-out F1; shared 0.4-to-1.0 color scale. Default and recalibrated panels use the same test emails and scores. Recalibrated thresholds were selected previously on separate calibration data; this script selects no thresholds.",
+  "model_fits": 0
+}

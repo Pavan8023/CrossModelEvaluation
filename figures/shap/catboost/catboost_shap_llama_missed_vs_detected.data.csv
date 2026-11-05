@@ -1,0 +1,7 @@
+feature,cohort,emails,mean_signed_shap,score_scale
+time_pressure_density,missed_llama,201,-0.5929461543337406,raw margin (log-odds)
+time_pressure_density,detected_llama,128,0.45171419672546087,raw margin (log-odds)
+mean_word_len,missed_llama,201,-0.4733539854970988,raw margin (log-odds)
+mean_word_len,detected_llama,128,0.5671120243750798,raw margin (log-odds)
+yules_k,missed_llama,201,-0.4408945915910334,raw margin (log-odds)
+yules_k,detected_llama,128,0.05419041277611548,raw margin (log-odds)

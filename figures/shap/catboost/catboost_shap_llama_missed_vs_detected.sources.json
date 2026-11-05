@@ -1,0 +1,65 @@
+{
+  "purpose": "Reconstructed, reproducible plotting of existing experiment results",
+  "plotting_script": "src/plots/plot_catboost_shap_errors.py",
+  "versions": {
+    "python": "3.13.5",
+    "matplotlib": "3.11.2",
+    "numpy": "2.5.4"
+  },
+  "dpi": 450,
+  "figure_size_inches": [
+    9.1,
+    4.8
+  ],
+  "experiments": {
+    "shap|catboost|all": {
+      "experiment_id": "catboost_shap_20261104T205638_90dceaf4",
+      "ledger": "ledger/shap/catboost/catboost_shap_20261104T205638_90dceaf4.json"
+    },
+    "cross_model|catboost|all": {
+      "experiment_id": "catboost_cross_model_20261103T023109_e651ca95",
+      "ledger": "ledger/cross_model/catboost/catboost_cross_model_20261103T023109_e651ca95.json"
+    }
+  },
+  "source_files": [
+    {
+      "path": "ledger/cross_model/catboost/catboost_cross_model_20261103T023109_e651ca95.json",
+      "sha256": "24f9adf8c1e0a6f6525919f981a4d9b0a8809cd260f155038caf4297ecb90dc4"
+    },
+    {
+      "path": "ledger/shap/catboost/catboost_shap_20261104T205638_90dceaf4.json",
+      "sha256": "40c6dfb52fb8e25690a28f515875be2c9300ea79e4b1d60fa43c0358b2e80116"
+    },
+    {
+      "path": "results/cross_model/catboost/catboost_cross_model_20261103T023109_e651ca95/cross_model_predictions.csv",
+      "sha256": "89fa14924f423b228aefac4c09ce1921f9fa1d3fc83417ffc970cdfa1faa028e"
+    },
+    {
+      "path": "results/shap/catboost/catboost_shap_20261104T205638_90dceaf4/shap_by_email.csv",
+      "sha256": "27f0fc91205e83e9aa058c570080fa117e64fc8e5453ec36ccd6deb6fd5f33cc"
+    },
+    {
+      "path": "results/shap/catboost/catboost_shap_20261104T205638_90dceaf4/shap_feature_summary.csv",
+      "sha256": "aa736331d874abe74235fea7be1d9c423fd2e5881d970fa21849aeccbee0e217"
+    },
+    {
+      "path": "src/plots/figure_sources.json",
+      "sha256": "ffbd00030d1e5d1676ffdcc2c7b59e8c434b49ee5022caabe926d63286f2ecb0"
+    },
+    {
+      "path": "src/plots/plot_catboost_shap_errors.py",
+      "sha256": "c947c507b5ce0bde4e3ab5b9f5d1789026a5813487ed462906742819d0ab6dc4"
+    },
+    {
+      "path": "src/plots/plot_utils.py",
+      "sha256": "8db638820e4958ef93f0613f58c1227be2f3bb9ff771eb58481fc8e7b3c55ae5"
+    }
+  ],
+  "outputs": {
+    "figures/shap/catboost/catboost_shap_llama_missed_vs_detected.png": "d9037681f6188d75a689a2fd71ae3f3cad6710e8dd0be454dc1d40e140657005",
+    "figures/shap/catboost/catboost_shap_llama_missed_vs_detected.svg": "43367e3ee93b66c75528f9d8fa137dd6cf2b23405fa10b8484cfd7896c2e9894",
+    "figures/shap/catboost/catboost_shap_llama_missed_vs_detected.data.csv": "a22a9e1207e33247114cb1484d6be8707f3b23344e04b0ec0168657911efe358"
+  },
+  "calculation": "Select the three smallest mean signed contributions among missed Llama emails; compare their means on detected Llama emails. Means are recomputed from verified per-email native CatBoost SHAP contributions. These are associations with model scores, not causal effects.",
+  "model_fits": 0
+}

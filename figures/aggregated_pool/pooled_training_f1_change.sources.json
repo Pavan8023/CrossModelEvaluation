@@ -1,0 +1,157 @@
+{
+  "purpose": "Reconstructed, reproducible plotting of existing experiment results",
+  "plotting_script": "src/plots/plot_aggregated_pool_change.py",
+  "versions": {
+    "python": "3.13.5",
+    "matplotlib": "3.11.2",
+    "numpy": "2.5.4"
+  },
+  "dpi": 450,
+  "figure_size_inches": [
+    9.1,
+    4.7
+  ],
+  "experiments": {
+    "cross_model|knn|all": {
+      "experiment_id": "knn_cross_model_20261103T021221_45fd3a12",
+      "ledger": "ledger/cross_model/knn/knn_cross_model_20261103T021221_45fd3a12.json"
+    },
+    "aggregated_pool|knn|all": {
+      "experiment_id": "knn_aggregated_pool_20261103T184614_62694cbe",
+      "ledger": "ledger/aggregated_pool/knn/knn_aggregated_pool_20261103T184614_62694cbe.json"
+    },
+    "cross_model|lightgbm|all": {
+      "experiment_id": "lightgbm_cross_model_20261103T022903_7b14492e",
+      "ledger": "ledger/cross_model/lightgbm/lightgbm_cross_model_20261103T022903_7b14492e.json"
+    },
+    "aggregated_pool|lightgbm|all": {
+      "experiment_id": "lightgbm_aggregated_pool_20261103T184900_bdd5539e",
+      "ledger": "ledger/aggregated_pool/lightgbm/lightgbm_aggregated_pool_20261103T184900_bdd5539e.json"
+    },
+    "cross_model|catboost|all": {
+      "experiment_id": "catboost_cross_model_20261103T023109_e651ca95",
+      "ledger": "ledger/cross_model/catboost/catboost_cross_model_20261103T023109_e651ca95.json"
+    },
+    "aggregated_pool|catboost|all": {
+      "experiment_id": "catboost_aggregated_pool_20261103T185359_df4f6483",
+      "ledger": "ledger/aggregated_pool/catboost/catboost_aggregated_pool_20261103T185359_df4f6483.json"
+    },
+    "cross_model|xgboost|all": {
+      "experiment_id": "xgboost_cross_model_20261105T020322_03ccc83c",
+      "ledger": "ledger/cross_model/xgboost/xgboost_cross_model_20261105T020322_03ccc83c.json"
+    },
+    "aggregated_pool|xgboost|all": {
+      "experiment_id": "xgboost_aggregated_pool_20261105T024934_cdf720f2",
+      "ledger": "ledger/aggregated_pool/xgboost/xgboost_aggregated_pool_20261105T024934_cdf720f2.json"
+    },
+    "cross_model|random_forest|all": {
+      "experiment_id": "random_forest_cross_model_20261105T020330_20f5c30a",
+      "ledger": "ledger/cross_model/random_forest/random_forest_cross_model_20261105T020330_20f5c30a.json"
+    },
+    "aggregated_pool|random_forest|all": {
+      "experiment_id": "random_forest_aggregated_pool_20261105T025122_107ccacf",
+      "ledger": "ledger/aggregated_pool/random_forest/random_forest_aggregated_pool_20261105T025122_107ccacf.json"
+    }
+  },
+  "source_files": [
+    {
+      "path": "ledger/aggregated_pool/catboost/catboost_aggregated_pool_20261103T185359_df4f6483.json",
+      "sha256": "9a137635cb25fc666271ce42816b8c3e7a51dc1c9ef11b4d3ebab4875a398f48"
+    },
+    {
+      "path": "ledger/aggregated_pool/knn/knn_aggregated_pool_20261103T184614_62694cbe.json",
+      "sha256": "152e4ebacf467b2fbdf5acdca84b9076691a7f160747e200912bada076647191"
+    },
+    {
+      "path": "ledger/aggregated_pool/lightgbm/lightgbm_aggregated_pool_20261103T184900_bdd5539e.json",
+      "sha256": "ba3ac5eddef012a24d5a9fdbbed17ca6404bc8caf7a067de5a49cb25f7892a43"
+    },
+    {
+      "path": "ledger/aggregated_pool/random_forest/random_forest_aggregated_pool_20261105T025122_107ccacf.json",
+      "sha256": "81d4d5e23c0e742b546f494e09d999449e7f9f635df205956c491c5de963ee92"
+    },
+    {
+      "path": "ledger/aggregated_pool/xgboost/xgboost_aggregated_pool_20261105T024934_cdf720f2.json",
+      "sha256": "79b628d54a4a71c72c985f71eebe1523034bf84f7af8124719b877bba2dca355"
+    },
+    {
+      "path": "ledger/cross_model/catboost/catboost_cross_model_20261103T023109_e651ca95.json",
+      "sha256": "24f9adf8c1e0a6f6525919f981a4d9b0a8809cd260f155038caf4297ecb90dc4"
+    },
+    {
+      "path": "ledger/cross_model/knn/knn_cross_model_20261103T021221_45fd3a12.json",
+      "sha256": "0e727ff1e4ca1d2f99a61626cdbd44e005420362287d0cb74baed28a6131e8d6"
+    },
+    {
+      "path": "ledger/cross_model/lightgbm/lightgbm_cross_model_20261103T022903_7b14492e.json",
+      "sha256": "505d0ae90bd0e762bb7d3078e414159246f9f5133cff613bbe1d1a7ea422984e"
+    },
+    {
+      "path": "ledger/cross_model/random_forest/random_forest_cross_model_20261105T020330_20f5c30a.json",
+      "sha256": "c648380026b3193d4b4d9dbccef7eb3009bb8baa9f86341b3ab544791fdf904a"
+    },
+    {
+      "path": "ledger/cross_model/xgboost/xgboost_cross_model_20261105T020322_03ccc83c.json",
+      "sha256": "e252f14804ceaddc22ae20499585ee1b15ca735d8e9f2e37c4e6bb36aed74085"
+    },
+    {
+      "path": "results/aggregated_pool/catboost/catboost_aggregated_pool_20261103T185359_df4f6483/aggregated_pool_metrics.csv",
+      "sha256": "b7d43539de3e967eba1b012d8bba7230983091bebb26e5aaab2081a0cd27bdb4"
+    },
+    {
+      "path": "results/aggregated_pool/knn/knn_aggregated_pool_20261103T184614_62694cbe/aggregated_pool_metrics.csv",
+      "sha256": "0038058fc4e2808b8df5aa4b17a52e96d1b52400d0d08effe48c6272268f2f5a"
+    },
+    {
+      "path": "results/aggregated_pool/lightgbm/lightgbm_aggregated_pool_20261103T184900_bdd5539e/aggregated_pool_metrics.csv",
+      "sha256": "ee1d5add8d33595b9474eeef9f901b90bd02743b65961508dfac14c648a67072"
+    },
+    {
+      "path": "results/aggregated_pool/random_forest/random_forest_aggregated_pool_20261105T025122_107ccacf/aggregated_pool_metrics.csv",
+      "sha256": "3f3cfcb90159d715d33ab81a43b9ac9821c6200511ba01b8ee30943ade558287"
+    },
+    {
+      "path": "results/aggregated_pool/xgboost/xgboost_aggregated_pool_20261105T024934_cdf720f2/aggregated_pool_metrics.csv",
+      "sha256": "4b6b6aa4c23564f49555f1e96b91fe159a4dff8a4d70a7b5ea66a83862528203"
+    },
+    {
+      "path": "results/cross_model/catboost/catboost_cross_model_20261103T023109_e651ca95/cross_model_metrics.csv",
+      "sha256": "71e056baf3d843b37f83761667f89e741196e06fc75870bd18dbcb99580c5a6a"
+    },
+    {
+      "path": "results/cross_model/knn/knn_cross_model_20261103T021221_45fd3a12/cross_model_metrics.csv",
+      "sha256": "29727e634eaaba42c353e3a11e65be5e6e2a25032aae525d53cadb7537778cde"
+    },
+    {
+      "path": "results/cross_model/lightgbm/lightgbm_cross_model_20261103T022903_7b14492e/cross_model_metrics.csv",
+      "sha256": "40af150ed364896554d76b9a261795020a8182ceace48b60e98bd12fdd40925a"
+    },
+    {
+      "path": "results/cross_model/random_forest/random_forest_cross_model_20261105T020330_20f5c30a/cross_model_metrics.csv",
+      "sha256": "d227d12f9586e09f8afa0e7d8e253a342779cbb48619a139ef5546cfc9d2d721"
+    },
+    {
+      "path": "results/cross_model/xgboost/xgboost_cross_model_20261105T020322_03ccc83c/cross_model_metrics.csv",
+      "sha256": "1460add25dc73f12f5bdba528c73fc51ab8a20f40b004eb1052724e8664db217"
+    },
+    {
+      "path": "src/plots/figure_sources.json",
+      "sha256": "ffbd00030d1e5d1676ffdcc2c7b59e8c434b49ee5022caabe926d63286f2ecb0"
+    },
+    {
+      "path": "src/plots/plot_aggregated_pool_change.py",
+      "sha256": "195d463c0eda3830839c5ffbd66a34de310d847037782cf13c0631aa08004d0b"
+    },
+    {
+      "path": "src/plots/plot_utils.py",
+      "sha256": "8db638820e4958ef93f0613f58c1227be2f3bb9ff771eb58481fc8e7b3c55ae5"
+    }
+  ],
+  "outputs": {
+    "figures/aggregated_pool/pooled_training_f1_change.png": "55f9f68ea21ce1303c13b318ce783d5707f58e8fccc04191bbdffe7b6866485b",
+    "figures/aggregated_pool/pooled_training_f1_change.svg": "0c0e208c4872203cb596a0792810ac09684e81e1d4f69fb6abb865bfaba3029e",
+    "figures/aggregated_pool/pooled_training_f1_change.data.csv": "d9f4e45aa9630e4ff9f7da5c43cfe68c2ccde4b9ab9c8a7c5677f17a3828f2dd"
+  },
+  "calculation": "For each target generator: 100 * (pooled model generator-specific F1 minus equal-weight mean F1 of the two individual models trained on other generators). This is not pooled-vs-matched training. Pooled training includes the target generator and more records; this is not a causal estimate of diversity alone.",
+  "model_fits": 0
+}
